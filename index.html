@@ -63,7 +63,7 @@
     /* Hilo (feed) */
     .feed{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
     .section-title{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border)}
-    .thread{display:flex;flex-direction:column;align-items:flex-start;max-width:780px}
+    .thread{display:flex;flex-direction:column;align-items:flex-start;max-width:820px}
     .post{
       width:100%;display:grid;grid-template-columns:56px 1fr;gap:12px;
       padding:14px 16px;border-bottom:1px solid var(--border);background:var(--card);
@@ -77,38 +77,50 @@
     .avatar img{width:100%;height:100%;object-fit:cover}
     .postHeader{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
     .postTitle{font-size:20px;margin:0;color:var(--headline);font-weight:800}
-    .postMeta{font-size:12px;color:var(--muted)}
+    .postMeta{font-size:12px;color:var(--muted);display:flex;gap:8px;align-items:center}
     .postExcerpt{font-size:15px;color:var(--body);margin-top:6px}
     .thumbGrid{margin-top:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
     .thumbGrid img{
       width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;image-rendering:auto;
-      filter:contrast(105%) saturate(105%); /* nitidez percibida */
+      filter:contrast(105%) saturate(108%); /* nitidez percibida */
     }
     .postTags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
     .tag{font-size:12px;color:#cfe7ff;background:var(--card2);border:1px solid var(--border);padding:4px 8px;border-radius:999px}
     [data-theme="light"] .tag{color:#284560}
     .postActions{display:flex;gap:12px;margin-top:10px}
-    .react{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer;user-select:none}
-    .react.active{color:var(--accent2)}
+    .react{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer;user-select:none}
+    .react svg{width:18px;height:18px;stroke:currentColor;fill:none}
+    .react.like.active{color:var(--accent2)}
+    .react.share{color:#7fb3ff}
+    .react.comment{color:#9fb0c0}
     .feedStatus{font-size:12px;color:var(--muted);padding:8px 14px;border-top:1px solid var(--border)}
 
-    /* Columna derecha */
+    /* Columna derecha (portada y lectura) */
     .rightbar{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
     .rightHeader{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border)}
     .rightBox{padding:14px}
     .stat{display:flex;justify-content:space-between;font-size:14px;color:var(--body);padding:8px 0;border-bottom:1px dashed var(--border)}
     .stat:last-child{border-bottom:none}
+    .authorsList{display:grid;grid-template-columns:1fr;gap:8px}
+    .authorItem{display:flex;gap:10px;align-items:center;padding:8px;border:1px solid var(--border);border-radius:12px;background:var(--card2)}
+    .authorItem .profileAvatar{width:32px;height:32px}
 
     /* Lectura profesional */
-    .readerPanel{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);grid-column:1 / -1;display:none}
+    .readerPanel{background:transparent;grid-column:1 / -1;display:none}
+    .readerLayout{display:grid;grid-template-columns:1.6fr .9fr;gap:20px}
+    @media (max-width:980px){ .readerLayout{grid-template-columns:1fr} }
+    .readerCard{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
     .reader{padding:18px;max-width:900px;margin:0 auto}
     .cover{width:100%;border-radius:16px;overflow:hidden;background:var(--card2)}
     .cover img{width:100%;height:auto;max-height:480px;object-fit:cover}
     .readerTitle{margin:16px 0 6px;font-size:34px;color:var(--headline);font-family:Merriweather, Georgia, serif;text-align:left}
     .readerDeck{color:var(--body);font-size:18px;font-family:Merriweather, Georgia, serif;text-align:left}
-    .readerMeta{color:var(--muted);font-size:13px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px;justify-content:flex-start}
-    .readerTags{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start}
-    .readerActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;justify-content:flex-start}
+    .readerMeta{color:var(--muted);font-size:13px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px;justify-content:flex-start}
+    .readerAuthor{display:flex;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--border)}
+    .readerAuthor .profileAvatar{width:36px;height:36px}
+    .readerTags{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start}
+    .readerActions{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px;justify-content:flex-start}
+    .readerActions .btn{display:flex;gap:8px;align-items:center}
     .readerBody{
       margin-top:16px;line-height:1.9;font-size:18px;color:var(--body);
       text-align:center; /* solo cuerpo centrado */
@@ -139,7 +151,6 @@
     .composerEditor[contenteditable="true"]{outline:none}
     .composerToolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;justify-content:center}
     .uploader{text-align:center;margin-top:10px}
-    .uploader input[type="file"]{display:inline-block}
     .previewImgs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;justify-content:center}
     .previewImgs img{width:110px;height:110px;object-fit:cover;border-radius:12px;border:1px solid var(--border)}
     .composerActions{display:flex;gap:8px;justify-content:center;margin-top:10px}
@@ -155,7 +166,7 @@
     <div class="nav">
       <div class="brand">
         <div class="logo"></div>
-        <h1>S</h1>
+        <h1>El Metro Diario</h1>
       </div>
       <div class="actions">
         <div id="themeSwitch" class="switch" title="Tema"><div class="knob"></div></div>
@@ -197,13 +208,17 @@
       <div id="feedStatus" class="feedStatus"></div>
     </section>
 
-    <!-- Columna derecha -->
-    <aside class="rightbar">
+    <!-- Columna derecha (portada) -->
+    <aside class="rightbar" id="homeRightbar">
       <div class="rightHeader"><strong>Panel</strong></div>
       <div class="rightBox">
         <div class="stat"><span>Noticias</span><span id="statPosts">0</span></div>
         <div class="stat"><span>Imágenes</span><span id="statImages">0</span></div>
         <div class="stat"><span>Mis publicaciones locales</span><span id="statLocal">0</span></div>
+      </div>
+      <div class="rightHeader"><strong>Autores activos</strong></div>
+      <div class="rightBox">
+        <div id="authorsList" class="authorsList"></div>
       </div>
       <div class="rightHeader"><strong>Accesos</strong></div>
       <div class="rightBox">
@@ -212,29 +227,56 @@
       </div>
     </aside>
 
-    <!-- Lectura profesional -->
-    <section class="readerPanel">
-      <div class="section-title"><strong>Lectura</strong></div>
-      <div class="reader">
-        <div class="cover" id="viewCover"></div>
-        <h1 class="readerTitle" id="viewTitle"></h1>
-        <div class="readerDeck" id="viewDeck" style="display:none"></div>
-        <div class="readerMeta">
-          <span id="viewMeta"></span>
-          <span>•</span>
-          <span id="viewReadTime">⏱︎ 0 min</span>
+    <!-- Lectura profesional con columna derecha -->
+    <section class="readerPanel" id="readerPanel">
+      <div class="readerLayout">
+        <div class="readerCard">
+          <div class="section-title"><strong>Lectura</strong></div>
+          <div class="reader">
+            <div class="cover" id="viewCover"></div>
+            <h1 class="readerTitle" id="viewTitle"></h1>
+            <div class="readerDeck" id="viewDeck" style="display:none"></div>
+            <div class="readerMeta">
+              <span id="viewMeta"></span>
+              <span>•</span>
+              <span id="viewReadTime">⏱︎ 0 min</span>
+            </div>
+            <div class="readerAuthor" id="readerAuthor">
+              <div class="profileAvatar"><img id="readerAuthorImg" alt=""></div>
+              <div>
+                <div id="readerAuthorName" style="font-weight:600;color:var(--headline)">Autor</div>
+                <div id="readerAuthorEmail" style="font-size:12px;color:var(--muted)"></div>
+              </div>
+            </div>
+            <div class="readerTags" id="viewLabels"></div>
+            <div class="readerActions">
+              <button class="btn" id="viewLikeBtn">
+                <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.33-7.34A5.51 5.51 0 0 1 7.5 4.5c1.54 0 3.04.7 4.5 2.1 1.46-1.4 2.96-2.1 4.5-2.1a5.51 5.51 0 0 1 4.83 9.16C19 16.65 12 21 12 21Z" stroke-width="1.6"/></svg>
+                Me gusta <span id="viewLikeCount">0</span>
+              </button>
+              <button class="btn" id="viewShare">
+                <svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 16V4m0 0 4 4m-4-4-4 4" stroke-width="1.6"/></svg>
+                Compartir
+              </button>
+              <button class="btn ghost" id="closePost">Volver</button>
+            </div>
+            <div class="readerBody" id="viewContent"></div>
+            <div class="readerFooter">
+              <button class="btn ghost" id="backToFront">← Portada</button>
+            </div>
+          </div>
         </div>
-        <div class="readerTags" id="viewLabels"></div>
-        <div class="readerActions">
-          <button class="btn" id="viewShare">Compartir</button>
-          <button class="btn" id="viewCopyLink">Copiar enlace</button>
-          <button class="btn ghost" id="closePost">Volver</button>
-          <div class="react" id="viewLike">❤️ <span>0</span></div>
-        </div>
-        <div class="readerBody" id="viewContent"></div>
-        <div class="readerFooter">
-          <button class="btn ghost" id="backToFront">← Portada</button>
-        </div>
+
+        <aside class="rightbar" id="readerRightbar">
+          <div class="rightHeader"><strong>Autor</strong></div>
+          <div class="rightBox" id="readerAuthorCard">
+            <!-- Rellenado dinámicamente -->
+          </div>
+          <div class="rightHeader"><strong>Resumen</strong></div>
+          <div class="rightBox" id="readerSummary">
+            <!-- Rellenado dinámicamente -->
+          </div>
+        </aside>
       </div>
     </section>
   </main>
@@ -281,11 +323,12 @@
     // ===== State =====
     const state = {
       posts: [],
-      localPosts: JSON.parse(localStorage.getItem("localPosts") || "[]"), // comentarios => posts locales
+      localPosts: JSON.parse(localStorage.getItem("localPosts") || "[]"),
       likes: JSON.parse(localStorage.getItem("likes") || "{}"),
       theme: localStorage.getItem("theme") || "dark",
-      user: null, // { name, email, picture, accessToken }
-      uploadDataUrls: []
+      user: JSON.parse(localStorage.getItem("sessionUser") || "null"), // persistente
+      uploadDataUrls: [],
+      authors: JSON.parse(localStorage.getItem("authors") || "[]") // [{name,email,picture,posts:count}]
     };
 
     // ===== Theme =====
@@ -314,7 +357,7 @@
       const doc = new DOMParser().parseFromString(html, "text/html");
       return [...doc.querySelectorAll("img")].map(img => img.src).filter(Boolean);
     }
-    function extractExcerpt(html, len=220){
+    function extractExcerpt(html, len=240){
       const text = new DOMParser().parseFromString(html, "text/html").body.textContent || "";
       return text.length > len ? text.slice(0, len).trim() + "…" : text;
     }
@@ -326,6 +369,34 @@
       return { mins, words, deck };
     }
     function debounce(fn, wait){ let t; return (...args) => { clearTimeout(t); t = setTimeout(()=>fn(...args), wait); }; }
+    function updateAuthorsList(author){
+      const list = state.authors.slice();
+      const idx = list.findIndex(a => a.email === author.email);
+      if (idx >= 0) list[idx].posts = (list[idx].posts || 0) + 1;
+      else list.push({ name: author.name, email: author.email, picture: author.picture, posts: 1 });
+      state.authors = list;
+      localStorage.setItem("authors", JSON.stringify(state.authors));
+      renderAuthorsRightbar();
+    }
+    function renderAuthorsRightbar(){
+      const el = document.getElementById("authorsList");
+      if (!el) return;
+      el.innerHTML = "";
+      state.authors.sort((a,b)=> (b.posts||0)-(a.posts||0));
+      state.authors.forEach(a=>{
+        const div = document.createElement("div");
+        div.className = "authorItem";
+        div.innerHTML = `
+          <div class="profileAvatar"><img src="${a.picture||""}" alt=""></div>
+          <div>
+            <div style="font-weight:600;color:var(--headline)">${escapeHtml(a.name||a.email||"Autor")}</div>
+            <div style="font-size:12px;color:var(--muted)">${escapeHtml(a.email||"")}</div>
+            <div style="font-size:12px;color:var(--muted)">Posts: ${a.posts||0}</div>
+          </div>
+        `;
+        el.appendChild(div);
+      });
+    }
 
     // ===== Profile UI =====
     function showProfileChip({name, email, picture}){
@@ -352,7 +423,7 @@
       else { img.style.display="none"; fallback.style.display="inline"; }
     }
 
-    // ===== OAuth for profile only (no Blogger write) =====
+    // ===== OAuth for profile only (persist session) =====
     const OAUTH_SCOPES = [
       "https://www.googleapis.com/auth/userinfo.email",
       "https://www.googleapis.com/auth/userinfo.profile",
@@ -364,6 +435,13 @@
       s.src = "https://accounts.google.com/gsi/client";
       s.async = true; s.defer = true;
       s.onload = () => {
+        // Restore persistent session
+        if (state.user) {
+          document.getElementById("loginBtn").style.display = "none";
+          showProfileChip(state.user);
+          updateComposerAvatar(state.user);
+        }
+
         document.getElementById("loginBtn").addEventListener("click", () => {
           const client = google.accounts.oauth2.initTokenClient({
             client_id: GOOGLE_CLIENT_ID,
@@ -374,6 +452,7 @@
                 try {
                   const ui = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", { headers:{ Authorization:`Bearer ${resp.access_token}` } }).then(r=>r.json());
                   state.user = { accessToken: resp.access_token, email: ui.email, name: ui.name, picture: ui.picture };
+                  localStorage.setItem("sessionUser", JSON.stringify(state.user)); // persist
                   document.getElementById("loginBtn").style.display = "none";
                   showProfileChip(state.user);
                   updateComposerAvatar(state.user);
@@ -389,6 +468,7 @@
     })();
     function logout(){
       state.user = null;
+      localStorage.removeItem("sessionUser");
       document.getElementById("profileChip").style.display = "none";
       document.getElementById("profileMenu").style.display = "none";
       document.getElementById("loginBtn").style.display = "inline-block";
@@ -413,7 +493,7 @@
       const list = document.getElementById("thread");
       list.innerHTML = "";
       const items = [
-        ...state.localPosts.map(lp => ({ ...lp, isLocal: true })), // local first
+        ...state.localPosts.map(lp => ({ ...lp, isLocal: true })),
         ...state.posts.map(p => ({ ...p, isLocal: false }))
       ];
 
@@ -422,28 +502,44 @@
         container.className = "post";
 
         const initials = p.isLocal
-          ? (state.user?.name || "ED").slice(0,2).toUpperCase()
+          ? (p.author?.displayName || "ED").slice(0,2).toUpperCase()
           : (p.author?.displayName || "ED").slice(0,2).toUpperCase();
 
-        // images
+        const avatarHtml = p.isLocal && p.author?.picture
+          ? `<img src="${p.author.picture}" alt="">`
+          : `<span>${initials}</span>`;
+
         const imgs = p.isLocal ? (p.images||[]) : extractImages(p.content||"");
-        const thumbs = imgs.slice(0,6); // grid smaller thumbs
-        const excerpt = p.isLocal ? extractExcerpt(p.content, 220) : extractExcerpt(p.content, 220);
-        const { mins } = p.isLocal ? estimateReadTime(p.content) : estimateReadTime(p.content||"");
+        const thumbs = imgs.slice(0,6);
+        const excerpt = extractExcerpt(p.content||"", 240);
+        const { mins } = estimateReadTime(p.content||"");
 
         container.innerHTML = `
-          <div class="avatar">${p.isLocal && state.user?.picture ? `<img src="${state.user.picture}" alt="">` : `<span>${initials}</span>`}</div>
+          <div class="avatar">${avatarHtml}</div>
           <div>
             <div class="postHeader">
               <h3 class="postTitle"><a href="#" data-open="${p.isLocal ? p.localId : p.id}" data-local="${p.isLocal ? 1 : 0}" class="open-post">${escapeHtml(p.title||"(Sin título)")}</a></h3>
-              <span class="postMeta">• ${p.isLocal ? fmtDate(p.published) : fmtDate(p.published)} • ⏱︎ ${mins} min</span>
+              <span class="postMeta">
+                <svg viewBox="0 0 24 24"><path d="M5 12h14" stroke-width="1.5"/></svg>
+                ${fmtDate(p.published||new Date().toISOString())} • ⏱︎ ${mins} min
+              </span>
             </div>
             <div class="postExcerpt">${escapeHtml(excerpt)}</div>
             ${thumbs.length ? `<div class="thumbGrid">${thumbs.map(src => `<img src="${src}" alt="">`).join("")}</div>` : ""}
             <div class="postTags">${(p.labels||[]).map(l => `<span class="tag">${escapeHtml(l)}</span>`).join("")}</div>
             <div class="postActions">
-              <div class="react" data-like="${p.isLocal ? p.localId : p.id}">❤️ <span>${state.likes[p.isLocal ? p.localId : p.id]?.count || 0}</span></div>
-              <div class="react" data-share="${p.isLocal ? p.localId : p.id}">🔗 Compartir</div>
+              <div class="react like" data-like="${p.isLocal ? p.localId : p.id}">
+                <svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.33-7.34A5.51 5.51 0 0 1 7.5 4.5c1.54 0 3.04.7 4.5 2.1 1.46-1.4 2.96-2.1 4.5-2.1a5.51 5.51 0 0 1 4.83 9.16C19 16.65 12 21 12 21Z" stroke-width="1.6"/></svg>
+                <span>${state.likes[p.isLocal ? p.localId : p.id]?.count || 0}</span>
+              </div>
+              <div class="react share" data-share="${p.isLocal ? p.localId : p.id}">
+                <svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 16V4m0 0 4 4m-4-4-4 4" stroke-width="1.6"/></svg>
+                <span>Compartir</span>
+              </div>
+              <div class="react comment">
+                <svg viewBox="0 0 24 24"><path d="M21 15a3 3 0 0 1-3 3H8l-4 3V6a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3z" stroke-width="1.6"/></svg>
+                <span>Responder</span>
+              </div>
             </div>
           </div>
         `;
@@ -462,8 +558,10 @@
       });
       list.querySelectorAll("[data-like]").forEach(btn => {
         btn.addEventListener("click", () => {
+          if (!state.user) { notify("Debes iniciar sesión para dar like.", "warn"); return; }
           const id = btn.getAttribute("data-like");
           toggleLike(id, btn);
+          btn.classList.toggle("active", (state.likes[id]||{}).liked);
         });
       });
       list.querySelectorAll("[data-share]").forEach(btn => {
@@ -475,8 +573,9 @@
       });
 
       // stats
+      const totalItems = items.length;
       const totalImages = items.reduce((sum,p) => sum + (p.isLocal ? (p.images||[]).length : extractImages(p.content||"").length), 0);
-      document.getElementById("statPosts").textContent = items.length;
+      document.getElementById("statPosts").textContent = totalItems;
       document.getElementById("statImages").textContent = totalImages;
       document.getElementById("statLocal").textContent = state.localPosts.length;
     }
@@ -484,11 +583,11 @@
     // ===== Reader =====
     function openReader(p, isLocal=false){
       document.querySelector(".feed").style.display = "none";
-      document.querySelector(".rightbar").style.display = "none";
-      document.querySelector(".readerPanel").style.display = "block";
+      document.getElementById("homeRightbar").style.display = "none";
+      document.getElementById("readerPanel").style.display = "block";
 
       const title = p.title || "(Sin título)";
-      const contentHtml = cleanUnwanted(isLocal ? p.content : (p.content || ""));
+      const contentHtml = cleanUnwanted(p.content || "");
       const images = isLocal ? (p.images||[]) : extractImages(contentHtml);
       const cover = images[0];
       const deckObj = estimateReadTime(contentHtml);
@@ -497,28 +596,52 @@
       document.getElementById("viewTitle").textContent = title;
       document.getElementById("viewDeck").style.display = deckObj.deck ? "block" : "none";
       document.getElementById("viewDeck").textContent = deckObj.deck;
-      document.getElementById("viewMeta").textContent = `${fmtDate(isLocal ? p.published : p.published)} • ${isLocal ? (state.user?.name || "Yo") : (p.author?.displayName || "Autor")}`;
-      document.getElementById("viewReadTime").textContent = `⏱︎ ${deckObj.mins} min`;
 
+      const authorName = isLocal ? (p.author?.displayName || "Autor") : (p.author?.displayName || "Autor");
+      const authorEmail = isLocal ? (p.author?.email || "") : "";
+      const authorPicture = isLocal ? (p.author?.picture || "") : "";
+
+      document.getElementById("viewMeta").textContent = `${fmtDate(p.published || new Date().toISOString())} • Por ${authorName}`;
+      document.getElementById("viewReadTime").textContent = `⏱︎ ${deckObj.mins} min`;
       document.getElementById("viewLabels").innerHTML = (p.labels||[]).map(l=>`<span class="tag">${escapeHtml(l)}</span>`).join("");
 
+      // Reader author block
+      document.getElementById("readerAuthorImg").src = authorPicture || "";
+      document.getElementById("readerAuthorName").textContent = authorName;
+      document.getElementById("readerAuthorEmail").textContent = authorEmail;
+
+      // Reader right column cards
+      document.getElementById("readerAuthorCard").innerHTML = `
+        <div class="authorItem">
+          <div class="profileAvatar"><img src="${authorPicture||""}" alt=""></div>
+          <div>
+            <div style="font-weight:600;color:var(--headline)">${escapeHtml(authorName)}</div>
+            <div style="font-size:12px;color:var(--muted)">${escapeHtml(authorEmail||"")}</div>
+          </div>
+        </div>
+      `;
+      document.getElementById("readerSummary").innerHTML = `
+        <div class="stat"><span>Tiempo lectura</span><span>${deckObj.mins} min</span></div>
+        <div class="stat"><span>Imágenes</span><span>${images.length}</span></div>
+        <div class="stat"><span>Etiquetas</span><span>${(p.labels||[]).length}</span></div>
+      `;
+
+      // Likes gating
       const likeId = isLocal ? p.localId : p.id;
       const like = state.likes[likeId] || { count: 0, liked: false };
-      const viewLike = document.getElementById("viewLike");
-      viewLike.classList.toggle("active", like.liked);
-      viewLike.querySelector("span").textContent = like.count;
-      viewLike.onclick = () => toggleLike(likeId, viewLike);
-
-      document.getElementById("viewShare").onclick = () => sharePost(p);
-      document.getElementById("viewCopyLink").onclick = async () => {
-        const url = location.href;
-        try { await navigator.clipboard.writeText(url); notify("Enlace copiado.", "ok"); } catch(e){ notify("No se pudo copiar.", "err"); }
+      document.getElementById("viewLikeCount").textContent = like.count;
+      document.getElementById("viewLikeBtn").onclick = () => {
+        if (!state.user) { notify("Debes iniciar sesión para dar like.", "warn"); return; }
+        toggleLike(likeId);
+        document.getElementById("viewLikeCount").textContent = (state.likes[likeId]||{count:0}).count;
       };
 
+      document.getElementById("viewShare").onclick = () => sharePost(p);
+
+      // Body
       const body = document.getElementById("viewContent");
       body.innerHTML = "";
       const doc = new DOMParser().parseFromString(contentHtml, "text/html");
-
       doc.querySelectorAll("img").forEach(img => {
         img.loading = "lazy";
         img.style.display = "block";
@@ -526,7 +649,6 @@
         img.style.borderRadius = "14px";
         img.style.maxWidth = "95%";
       });
-
       [...doc.body.childNodes].forEach(node => {
         if (node.nodeType === 1) body.appendChild(node);
         else if (node.nodeType === 3 && node.textContent.trim()) {
@@ -537,22 +659,17 @@
       });
     }
     function closeReader(){
-      document.querySelector(".readerPanel").style.display = "none";
+      document.getElementById("readerPanel").style.display = "none";
       document.querySelector(".feed").style.display = "block";
-      document.querySelector(".rightbar").style.display = "block";
+      document.getElementById("homeRightbar").style.display = "block";
     }
     document.getElementById("closePost").addEventListener("click", closeReader);
     document.getElementById("backToFront").addEventListener("click", closeReader);
     document.getElementById("openReaderPanel").addEventListener("click", () => {
-      // If no post selected, open first available
       const p = state.localPosts[0] || state.posts[0];
       if (p) openReader(p, !!p.localId);
     });
-    document.getElementById("backHome").addEventListener("click", () => {
-      document.querySelector(".readerPanel").style.display = "none";
-      document.querySelector(".feed").style.display = "block";
-      document.querySelector(".rightbar").style.display = "block";
-    });
+    document.getElementById("backHome").addEventListener("click", closeReader);
 
     // ===== Likes & share =====
     function toggleLike(id, btnEl){
@@ -562,7 +679,6 @@
       state.likes[id] = like;
       localStorage.setItem("likes", JSON.stringify(state.likes));
       if (btnEl){
-        btnEl.classList.toggle("active", like.liked);
         const span = btnEl.querySelector("span");
         if (span) span.textContent = like.count;
       }
@@ -584,7 +700,10 @@
 
     // ===== Composer (local publishing) =====
     const composerModal = document.getElementById("composerModal");
-    function openComposer(){ composerModal.style.display = "flex"; updateComposerAvatar(state.user); }
+    function openComposer(){
+      if (!state.user) { notify("Debes iniciar sesión para publicar.", "warn"); return; }
+      composerModal.style.display = "flex"; updateComposerAvatar(state.user);
+    }
     document.getElementById("openComposer").addEventListener("click", openComposer);
     document.getElementById("closeComposer").addEventListener("click", () => composerModal.style.display = "none");
 
@@ -620,6 +739,8 @@
     });
 
     document.getElementById("publishBtn").addEventListener("click", async () => {
+      if (!state.user) { notify("Debes iniciar sesión para publicar.", "warn"); return; }
+
       const title = document.getElementById("newTitle").value.trim();
       const editor = document.getElementById("editor");
       const composeStatus = document.getElementById("composeStatus");
@@ -631,13 +752,15 @@
         title,
         content: contentHtml,
         labels: [],
-        author: { displayName: state.user?.name || "Yo" },
+        author: { displayName: state.user?.name || "Yo", email: state.user?.email || "", picture: state.user?.picture || "" },
         published: new Date().toISOString(),
-        images: state.uploadDataUrls.slice(0) // preserve
+        images: state.uploadDataUrls.slice(0)
       };
 
       state.localPosts.unshift(localPost);
       localStorage.setItem("localPosts", JSON.stringify(state.localPosts));
+      updateAuthorsList({ name: state.user?.name, email: state.user?.email, picture: state.user?.picture });
+
       composeStatus.style.color = "var(--ok)";
       composeStatus.textContent = "Publicado localmente (como comentario).";
       composerModal.style.display = "none";
@@ -662,17 +785,18 @@
       items.forEach(p => {
         const container = document.createElement("article");
         container.className = "post";
-        const initials = p.isLocal ? (state.user?.name || "ED").slice(0,2).toUpperCase() : (p.author?.displayName || "ED").slice(0,2).toUpperCase();
+        const initials = (p.author?.displayName || "ED").slice(0,2).toUpperCase();
+        const avatarHtml = p.isLocal && p.author?.picture ? `<img src="${p.author.picture}" alt="">` : `<span>${initials}</span>`;
         const imgs = p.isLocal ? (p.images||[]) : extractImages(p.content||"");
         const thumbs = imgs.slice(0,6);
-        const excerpt = extractExcerpt(p.isLocal ? p.content : p.content, 220);
-        const { mins } = estimateReadTime(p.isLocal ? p.content : p.content||"");
+        const excerpt = extractExcerpt(p.content||"", 240);
+        const { mins } = estimateReadTime(p.content||"");
         container.innerHTML = `
-          <div class="avatar">${p.isLocal && state.user?.picture ? `<img src="${state.user.picture}" alt="">` : `<span>${initials}</span>`}</div>
+          <div class="avatar">${avatarHtml}</div>
           <div>
             <div class="postHeader">
               <h3 class="postTitle"><a href="#" data-open="${p.isLocal ? p.localId : p.id}" data-local="${p.isLocal ? 1 : 0}" class="open-post">${escapeHtml(p.title||"(Sin título)")}</a></h3>
-              <span class="postMeta">• ⏱︎ ${mins} min</span>
+              <span class="postMeta">${fmtDate(p.published||new Date().toISOString())} • ⏱︎ ${mins} min</span>
             </div>
             <div class="postExcerpt">${escapeHtml(excerpt)}</div>
             ${thumbs.length ? `<div class="thumbGrid">${thumbs.map(src => `<img src="${src}" alt="">`).join("")}</div>` : ""}
@@ -700,10 +824,12 @@
         state.posts = data.items || [];
         status.textContent = `Mostrando ${state.posts.length + state.localPosts.length} (incluye locales).`;
         renderThread();
+        renderAuthorsRightbar();
       } catch (err) {
         status.style.color = "var(--err)";
         status.textContent = "No se pudieron cargar las noticias.";
-        renderThread(); // render at least locals
+        renderThread();
+        renderAuthorsRightbar();
       }
     }
     load();
