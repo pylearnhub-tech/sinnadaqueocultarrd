@@ -3,229 +3,248 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Periódico Digital — Noticias en tiempo real</title>
+  <title>Periódico Digital — Portada viva</title>
   <meta name="color-scheme" content="light dark">
   <style>
+    /* ---------- Theme tokens ---------- */
     :root {
-      --bg: #0b0e12;
-      --surface: #12161c;
-      --elev: #181d25;
-      --text: #e6edf3;
-      --muted: #9aa6b2;
-      --primary: #4aa3ff;
+      --bg: #090d12;
+      --surface: #0f141b;
+      --glass: rgba(18,24,32,.6);
+      --text: #e7edf3;
+      --muted: #93a1af;
+      --primary: #53b1fd;
       --accent: #22d3ee;
-      --danger: #f87171;
-      --ok: #34d399;
-      --border: #2a313b;
-      --shadow: 0 8px 24px rgba(0,0,0,.35);
+      --danger: #ef4444;
+      --ok: #22c55e;
+      --border: #22303f;
+      --shadow: 0 12px 36px rgba(0,0,0,.45);
+      --radius-lg: 18px;
       --radius: 14px;
       --radius-sm: 10px;
-      --radius-xs: 8px;
-      --focus: 0 0 0 3px rgba(74,163,255,.35);
+      --focus: 0 0 0 3px rgba(83,177,253,.35);
+      --grad-1: radial-gradient(800px 400px at 0% -10%, rgba(83,177,253,.18), transparent 60%);
+      --grad-2: radial-gradient(900px 450px at 100% -20%, rgba(34,211,238,.14), transparent 60%);
     }
+    :root.light {
+      --bg: #f6f8fc;
+      --surface: #ffffff;
+      --glass: rgba(255,255,255,.65);
+      --text: #0c1217;
+      --muted: #5e6b79;
+      --primary: #2563eb;
+      --accent: #0ea5e9;
+      --danger: #dc2626;
+      --ok: #16a34a;
+      --border: #e6e8ee;
+      --shadow: 0 12px 36px rgba(0,0,0,.08);
+      --grad-1: radial-gradient(800px 400px at 0% -10%, rgba(37,99,235,.12), transparent 60%);
+      --grad-2: radial-gradient(900px 450px at 100% -20%, rgba(14,165,233,.10), transparent 60%);
+    }
+
+    /* ---------- Global ---------- */
     * { box-sizing: border-box; }
     html, body { height: 100%; }
     body {
       margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(1200px 600px at 10% -30%, rgba(68,152,255,.06), transparent 55%),
-                  radial-gradient(1200px 600px at 100% -40%, rgba(34,211,238,.06), transparent 55%),
-                  var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background: var(--grad-1), var(--grad-2), var(--bg);
       color: var(--text);
     }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-    /* Layout */
+    /* ---------- Layout ---------- */
     .app {
       display: grid;
-      grid-template-columns: 300px minmax(0,760px) 360px;
+      grid-template-columns: 320px minmax(0,820px) 380px;
       gap: 24px;
-      max-width: 1440px;
+      max-width: 1500px;
       margin: 0 auto;
       padding: 24px;
     }
     @media (max-width: 1200px) {
-      .app { grid-template-columns: 260px minmax(0,1fr); }
-      .right { display:none; }
+      .app { grid-template-columns: 280px minmax(0,1fr); }
+      .right { display: none; }
     }
     @media (max-width: 860px) {
       .app { grid-template-columns: minmax(0,1fr); padding: 12px; }
-      .left { display:none; }
+      .left { display: none; }
     }
 
-    /* Panels */
+    /* ---------- Panels ---------- */
     .panel {
-      background: linear-gradient(180deg, rgba(255,255,255,.02), transparent 40%) , var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
       position: relative;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--glass), transparent 40%), var(--surface);
+      box-shadow: var(--shadow);
       overflow: clip;
+      transform: translateZ(0);
     }
 
-    /* Sidebar */
+    /* ---------- Sidebar ---------- */
     .brand {
-      display: flex; align-items: center; gap: 12px;
-      padding: 18px 18px 12px;
+      display: flex; align-items: center; gap: 14px;
+      padding: 18px 18px 8px;
     }
     .logo {
-      width: 36px; height: 36px; border-radius: 9px;
+      width: 40px; height: 40px; border-radius: 12px;
       background:
-        conic-gradient(from 120deg, #4aa3ff, #22d3ee, #4aa3ff);
-      box-shadow: 0 8px 20px rgba(74,163,255,.4);
+        conic-gradient(from 160deg, var(--primary), var(--accent), var(--primary));
+      box-shadow: 0 10px 24px color-mix(in oklab, var(--primary) 50%, transparent);
+      animation: float 5s ease-in-out infinite;
     }
-    .brand h1 { font-size: 18px; margin: 0; letter-spacing: .2px; }
-    .nav { padding: 10px; }
-    .nav button {
-      width: 100%; text-align: left;
-      padding: 12px 14px; border-radius: var(--radius-sm);
+    @keyframes float { 0%,100%{ transform: translateY(0)} 50%{ transform: translateY(-4px)} }
+    .brand h1 { margin: 0; font-size: 20px; letter-spacing: .2px; }
+
+    .nav { padding: 10px; display: grid; gap: 6px; }
+    .nav .item {
+      display:flex; align-items:center; gap: 12px;
+      padding: 12px 14px; border-radius: var(--radius);
       background: transparent; border: 1px solid transparent; color: var(--text);
-      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      cursor: pointer; user-select: none;
+      transition: transform .1s ease, background .12s ease, border-color .12s ease;
     }
-    .nav button:hover { background: #151a22; border-color: var(--border); }
-    .nav .active { background: #161b23; border-color: var(--border); }
+    .nav .item:hover { background: color-mix(in oklab, var(--surface) 78%, #000 22%); border-color: var(--border); transform: translateY(-1px); }
+    .nav .item.active { background: color-mix(in oklab, var(--surface) 70%, #000 30%); border-color: var(--border); }
 
-    /* Auth panel */
-    .auth {
-      padding: 18px;
-      border-top: 1px solid var(--border);
-    }
+    .auth { padding: 18px; border-top: 1px solid var(--border); }
     .auth h3 { margin: 0 0 10px; font-size: 15px; color: var(--muted); }
-    .auth .user {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px; border-radius: var(--radius-sm);
-      background: #151a20; border: 1px solid var(--border);
+    .user {
+      display:flex; align-items:center; gap: 12px;
+      padding: 12px; border-radius: var(--radius);
+      background: color-mix(in oklab, var(--surface) 75%, #000 25%); border: 1px solid var(--border);
     }
-    .avatar {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: linear-gradient(135deg, #4aa3ff, #22d3ee);
-      box-shadow: 0 6px 16px rgba(34,211,238,.35);
-    }
-    .user .meta { display: grid; }
-    .user .meta .name { font-weight: 600; }
-    .user .meta .handle { color: var(--muted); font-size: 13px; }
+    .avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); }
 
-    /* Compose floating button */
+    /* Switch */
+    .switch {
+      display:flex; align-items:center; gap: 10px; margin-top: 10px;
+    }
+    .switch label { font-size: 13px; color: var(--muted); }
+    .toggle {
+      position: relative; width: 48px; height: 26px;
+      background: #2b3340; border-radius: 999px; cursor: pointer;
+      transition: background .15s ease;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,.25);
+    }
+    .toggle::after {
+      content: ""; position: absolute; top: 3px; left: 3px;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,.28);
+      transition: left .15s ease, background .15s ease;
+    }
+    .toggle.checked { background: linear-gradient(135deg, var(--primary), var(--accent)); }
+    .toggle.checked::after { left: 25px; background: #071018; }
+    :root.light .toggle { background: #d1d6de; }
+    :root.light .toggle.checked { background: linear-gradient(135deg, var(--primary), var(--accent)); }
+
+    /* ---------- Compose button ---------- */
     .compose-btn {
-      position: fixed; z-index: 50;
-      right: 24px; bottom: 24px;
-      background: linear-gradient(135deg, #4aa3ff, #22d3ee);
-      color: #0a0d12; font-weight: 700;
+      position: fixed; z-index: 50; right: 24px; bottom: 24px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #071018; font-weight: 800;
       padding: 14px 18px; border: none; border-radius: 999px;
-      box-shadow: 0 8px 26px rgba(34,211,238,.35);
-      display: flex; align-items: center; gap: 10px; cursor: pointer;
+      box-shadow: 0 18px 28px color-mix(in oklab, var(--accent) 40%, transparent);
+      display:flex; align-items:center; gap: 10px; cursor: pointer;
+      transition: transform .12s ease, filter .12s ease;
     }
-    .compose-btn:hover { filter: brightness(1.08); }
-    .compose-btn:focus { outline: none; box-shadow: var(--focus); }
+    .compose-btn:hover { transform: translateY(-2px); filter: brightness(1.05); }
 
-    /* Feed header */
+    /* ---------- Feed header ---------- */
     .feed-header {
-      display: flex; align-items: center; justify-content: space-between;
+      display:flex; align-items:center; justify-content:space-between;
       padding: 14px 18px; border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; background: rgba(18,22,28,.85); backdrop-filter: blur(8px);
+      position: sticky; top: 0;
+      background: color-mix(in oklab, var(--surface) 85%, transparent);
+      backdrop-filter: blur(8px);
       z-index: 10;
     }
-    .feed-header h2 { margin: 0; font-size: 18px; letter-spacing: .2px; }
-    .filters { display:flex; gap: 8px; }
+    .feed-header h2 { margin: 0; font-size: 18px; }
+    .filters { display:flex; gap: 8px; align-items:center; }
     .chip {
       padding: 8px 12px; border-radius: 999px; border: 1px solid var(--border);
-      background: #141922; color: var(--muted); cursor: pointer; font-size: 13px;
+      background: color-mix(in oklab, var(--surface) 80%, #000 20%);
+      color: var(--muted); cursor: pointer; font-size: 13px;
+      transition: transform .12s ease, border-color .12s ease, color .12s ease;
     }
-    .chip.active { color: var(--text); border-color: #344154; }
+    .chip:hover { transform: translateY(-1px); }
+    .chip.active { color: var(--text); border-color: color-mix(in oklab, var(--border) 60%, var(--primary) 40%); }
 
-    /* Composer modal */
-    .modal {
-      position: fixed; inset: 0; display: none; place-items: center; z-index: 100;
-      background: rgba(5,8,12,.6); backdrop-filter: blur(6px);
-    }
+    /* ---------- Modal ---------- */
+    .modal { position: fixed; inset: 0; display: none; place-items: center; z-index: 100;
+      background: rgba(7,10,14,.6); backdrop-filter: blur(6px); }
     .modal.open { display: grid; }
     .dialog {
-      width: min(820px, 92vw);
-      background: var(--surface);
-      border: 1px solid var(--border); border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      animation: pop .18s ease-out;
+      width: min(880px, 92vw); border-radius: var(--radius-lg);
+      background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow);
+      overflow: hidden; animation: pop .18s ease-out;
     }
-    @keyframes pop { from { transform: scale(.98); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    .dialog .head {
-      display:flex; align-items:center; justify-content: space-between;
-      padding: 14px 16px; border-bottom: 1px solid var(--border);
-    }
-    .dialog .head h3 { margin:0; font-size:16px; }
+    @keyframes pop { from { transform: translateY(6px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    .dialog .head { display:flex; align-items:center; justify-content:space-between; padding: 14px 18px; border-bottom: 1px solid var(--border); }
     .dialog .body { padding: 16px; display: grid; gap: 12px; }
     .row { display: grid; gap: 8px; }
     label { font-size: 13px; color: var(--muted); }
-    input[type="text"], input[type="email"], input[type="password"], textarea {
-      width: 100%; padding: 12px 12px; border-radius: var(--radius-xs);
-      border: 1px solid #303846; background: #12161c; color: var(--text);
+    input[type="text"], input[type="email"], input[type="password"], textarea, select {
+      width: 100%; padding: 12px 12px; border-radius: var(--radius);
+      border: 1px solid #2c3949; background: #121822; color: var(--text);
+      transition: box-shadow .12s ease, border-color .12s ease;
     }
-    textarea { min-height: 140px; resize: vertical; }
+    input:focus, textarea:focus, select:focus { outline: none; box-shadow: var(--focus); border-color: color-mix(in oklab, var(--primary) 60%, var(--border)); }
+    :root.light input[type="text"], :root.light input[type="email"], :root.light input[type="password"], :root.light textarea, :root.light select {
+      border-color: #d5dbe3; background: #fff; color: #0c1217;
+    }
+
     .media-picker {
       display: grid; gap: 8px;
-      border: 1px dashed #384355; border-radius: var(--radius-xs);
+      border: 1px dashed #3a4757; border-radius: var(--radius);
       padding: 12px; background: #121822;
     }
-    .media-actions { display:flex; gap:8px; flex-wrap: wrap; }
-    .btn {
-      padding: 10px 12px; border-radius: 10px; border: 1px solid #2f3847;
-      background: #141a23; color: var(--text); cursor: pointer; font-weight: 600;
-    }
-    .btn.primary { background: linear-gradient(135deg, #4aa3ff, #22d3ee); color: #071018; border: none; }
-    .btn.danger { background: #1a1416; color: #fca5a5; border-color: #482b33; }
+    .previews { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+    .preview { position: relative; border: 1px solid #303846; border-radius: 12px; overflow: hidden; background: #0e1217; }
+    .preview img, .preview video { width: 100%; height: 130px; object-fit: cover; display: block; }
+    .preview .remove { position: absolute; top: 6px; right: 6px; background: rgba(0,0,0,.5); color: #fff; border: none; border-radius: 9px; padding: 6px 8px; cursor: pointer; font-size: 12px; }
+
+    .btn { padding: 10px 12px; border-radius: 12px; border: 1px solid #2f3847; background: #141a23; color: var(--text); cursor: pointer; font-weight: 700; transition: transform .1s ease; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { background: linear-gradient(135deg, var(--primary), var(--accent)); color: #071018; border: none; }
     .btn.ghost { background: transparent; border-color: transparent; color: var(--muted); }
+    .btn.danger { background: #1a1416; color: #fca5a5; border-color: #482b33; }
     .actions { display:flex; gap: 8px; justify-content: flex-end; padding: 10px 16px; border-top: 1px solid var(--border); }
 
-    .previews { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
-    .preview {
-      position: relative; border: 1px solid #303846; border-radius: 10px; overflow: hidden;
-      background: #0e1217;
-    }
-    .preview img, .preview video { width: 100%; height: 120px; object-fit: cover; display: block; }
-    .preview .remove {
-      position: absolute; top: 6px; right: 6px;
-      background: rgba(0,0,0,.45); color: #fff; border: none; border-radius: 8px;
-      padding: 6px 8px; cursor: pointer; font-size: 12px;
-    }
-
-    /* Feed */
+    /* ---------- Feed ---------- */
     .feed { min-height: 60vh; }
-    .card {
-      border-bottom: 1px solid var(--border);
-      padding: 14px 18px; display: grid; gap: 12px;
-      animation: fadeIn .22s ease-out;
-    }
+    .card { border-bottom: 1px solid var(--border); padding: 14px 18px; display: grid; gap: 12px; animation: fadeIn .22s ease-out; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
-    .card .meta { display:flex; gap:8px; align-items:center; color: var(--muted); font-size: 13px; }
-    .card h3 { margin: 0; font-size: 18px; letter-spacing: .2px; }
-    .card p { margin: 0; color: #cbd5e1; line-height: 1.5; }
+    .card .meta { display:flex; gap: 8px; align-items:center; color: var(--muted); font-size: 13px; }
+    .card h3 { margin: 0; font-size: 20px; letter-spacing: .2px; }
+    .card p { margin: 0; color: #cbd5e1; line-height: 1.6; }
+    :root.light .card p { color: #334155; }
     .gallery { display: grid; gap: 8px; grid-template-columns: repeat(2, 1fr); }
-    .gallery img, .gallery video { width: 100%; border-radius: 12px; border: 1px solid #2a313b; background: #0f1318; }
-    .toolbar { display:flex; gap: 10px; align-items:center; color: var(--muted); font-size: 13px; }
-    .toolbar button { background: transparent; color: var(--muted); border: 1px solid transparent; padding: 6px 10px; border-radius: 999px; cursor: pointer; }
-    .toolbar button:hover { border-color: #344154; color: var(--text); }
+    .gallery img, .gallery video { width: 100%; border-radius: 14px; border: 1px solid var(--border); background: #0f1318; }
 
-    /* Right panel */
+    .toolbar { display:flex; gap: 10px; align-items:center; color: var(--muted); font-size: 13px; }
+    .toolbar button { background: transparent; color: var(--muted); border: 1px solid transparent; padding: 8px 12px; border-radius: 999px; cursor: pointer; }
+    .toolbar button:hover { border-color: color-mix(in oklab, var(--border) 60%, var(--primary) 40%); color: var(--text); }
+
+    /* ---------- Comments ---------- */
+    .comments { display:grid; gap: 10px; margin-top: 6px; }
+    .comment { display:grid; gap: 6px; border: 1px solid var(--border); border-radius: 12px; padding: 10px; }
+    .comment .who { color: var(--muted); font-size: 12px; }
+
+    /* ---------- Right panel ---------- */
     .right .section { padding: 14px 18px; border-bottom: 1px solid var(--border); }
     .right h3 { margin: 0 0 8px; font-size: 16px; }
-    .trend { display:grid; gap: 4px; padding: 10px; border-radius: 12px; }
-    .trend:hover { background: #141a22; }
-    .trend .kicker { color: var(--muted); font-size: 12px; }
-    .trend .title { font-weight: 600; }
 
-    /* Toast */
-    .toast {
-      position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%);
-      background: #0d141d; border: 1px solid #384355; color: var(--text);
-      padding: 10px 14px; border-radius: 12px; box-shadow: var(--shadow);
-      display: none; z-index: 200;
-    }
-    .toast.show { display: inline-block; }
+    /* ---------- Toast ---------- */
+    .toast { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); background: #0d141d; border: 1px solid #384355; color: var(--text); padding: 10px 14px; border-radius: 12px; box-shadow: var(--shadow); display: none; z-index: 200; }
+    .toast.show { display: inline-block; animation: fadeIn .22s ease-out; }
+    :root.light .toast { background: #fff; border-color: #e5e7eb; color: #0e1217; }
 
-    /* Error */
     .error { color: #fca5a5; font-size: 13px; }
-
-    /* Utility */
-    .hidden { display:none !important; }
+    .hidden { display: none !important; }
+    .loading { opacity: .6; pointer-events: none; }
   </style>
 </head>
 <body>
@@ -236,21 +255,23 @@
         <div class="logo" aria-hidden="true"></div>
         <h1>Periódico Digital</h1>
       </div>
+
       <div class="nav">
-        <button class="active" data-view="latest">📰 Últimas</button>
-        <button data-view="local">📍 Local</button>
-        <button data-view="world">🌍 Mundo</button>
-        <button data-view="tech">💻 Tecnología</button>
-        <button data-view="sports">🏅 Deportes</button>
+        <button class="item active" data-view="latest">📰 Últimas</button>
+        <button class="item" data-view="local">📍 Local</button>
+        <button class="item" data-view="world">🌍 Mundo</button>
+        <button class="item" data-view="tech">💻 Tecnología</button>
+        <button class="item" data-view="sports">🏅 Deportes</button>
+        <button class="item" data-view="profile">👤 Perfil</button>
       </div>
 
       <div class="auth">
         <h3>Tu cuenta</h3>
         <div id="authSigned" class="user hidden">
-          <div class="avatar" aria-hidden="true"></div>
+          <img id="userAvatar" class="avatar" alt="Avatar">
           <div class="meta">
-            <span class="name" id="userName">—</span>
-            <span class="handle" id="userHandle">@—</span>
+            <div id="userName" style="font-weight:700;">—</div>
+            <div id="userHandle" style="color:var(--muted); font-size:13px;">@—</div>
           </div>
         </div>
 
@@ -258,6 +279,12 @@
           <button class="btn" id="openLogin">Iniciar sesión</button>
           <button class="btn" id="openRegister">Crear cuenta</button>
           <button class="btn danger hidden" id="logout">Cerrar sesión</button>
+
+          <div class="switch">
+            <label>Tema</label>
+            <div id="themeSwitch" class="toggle" role="switch" aria-checked="false" tabindex="0"></div>
+            <span id="themeLabel">Oscuro</span>
+          </div>
         </div>
       </div>
     </aside>
@@ -265,7 +292,7 @@
     <!-- CENTER -->
     <main class="center panel">
       <div class="feed-header">
-        <h2>Portada</h2>
+        <h2 id="centerTitle">Portada</h2>
         <div class="filters">
           <button class="chip active" data-filter="all">Todo</button>
           <button class="chip" data-filter="video">Videos</button>
@@ -281,24 +308,13 @@
     <aside class="right panel">
       <div class="section">
         <h3>Tendencias</h3>
-        <div class="trend">
-          <span class="kicker">HOY</span>
-          <span class="title">Nueva infraestructura vial en la ciudad</span>
-        </div>
-        <div class="trend">
-          <span class="kicker">TECNO</span>
-          <span class="title">IA generativa impulsa la productividad</span>
-        </div>
-        <div class="trend">
-          <span class="kicker">DEPORTES</span>
-          <span class="title">El clásico se define en los últimos minutos</span>
-        </div>
+        <p style="color:var(--muted);">Titulares destacados del día con movimiento real.</p>
       </div>
       <div class="section">
         <h3>Boletín</h3>
-        <p style="color: var(--muted);">Suscríbete para recibir titulares destacados cada mañana.</p>
+        <p style="color:var(--muted);">Recibe noticias cada mañana.</p>
         <div style="display:flex; gap:8px;">
-          <input type="text" placeholder="Tu correo" aria-label="Correo para boletín" />
+          <input type="email" placeholder="Tu correo" aria-label="Correo para boletín" />
           <button class="btn">Suscribir</button>
         </div>
       </div>
@@ -322,27 +338,25 @@
         </div>
         <div class="row">
           <label for="body">Cuerpo</label>
-          <textarea id="body" name="body" placeholder="Describe los hechos de forma breve y verificable" required></textarea>
+          <textarea id="body" name="body" placeholder="Describe los hechos con claridad y verificación" required></textarea>
         </div>
-
         <div class="row">
           <label>Medios</label>
           <div class="media-picker" id="dropArea">
-            <div class="media-actions">
+            <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
               <input type="file" id="imageInput" accept="image/*" multiple hidden />
               <button type="button" class="btn" id="pickImage">Agregar imágenes</button>
               <input type="file" id="videoInput" accept="video/*" multiple hidden />
               <button type="button" class="btn" id="pickVideo">Agregar videos</button>
-              <span style="color:var(--muted); font-size:13px;">Arrastra y suelta archivos aquí</span>
+              <span style="color:var(--muted); font-size:13px;">Arrastra archivos aquí</span>
             </div>
             <div class="previews" id="previews"></div>
           </div>
         </div>
-
         <div class="row" style="display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
           <div>
             <label for="category">Sección</label>
-            <select id="category" name="category" style="width:100%; padding:10px; border-radius:10px; background:#12161c; color:var(--text); border:1px solid #303846;">
+            <select id="category" name="category">
               <option value="latest">Últimas</option>
               <option value="local">Local</option>
               <option value="world">Mundo</option>
@@ -355,17 +369,16 @@
             <input type="text" id="tags" name="tags" placeholder="Ej: transporte, educación" />
           </div>
         </div>
-
         <div class="error" id="composeError" aria-live="polite"></div>
         <div class="actions">
           <button type="button" class="btn ghost" id="clearMedia">Limpiar medios</button>
-          <button type="submit" class="btn primary">Publicar</button>
+          <button type="submit" class="btn primary" id="publishBtn">Publicar</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Login/Register modal -->
+  <!-- Auth modal -->
   <div class="modal" id="authModal" aria-hidden="true">
     <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="authTitle">
       <div class="head">
@@ -375,7 +388,7 @@
       <form class="body" id="authForm">
         <div class="row">
           <label for="authMode">Modo</label>
-          <select id="authMode" style="width:100%; padding:10px; border-radius:10px; background:#12161c; color:var(--text); border:1px solid #303846;">
+          <select id="authMode">
             <option value="login">Iniciar sesión</option>
             <option value="register">Crear cuenta</option>
           </select>
@@ -384,9 +397,13 @@
           <label for="email">Correo</label>
           <input type="email" id="email" name="email" placeholder="tucorreo@ejemplo.com" required />
         </div>
-        <div class="row" id="nameRow" class="hidden">
+        <div class="row" id="nameRow" style="display:none;">
           <label for="displayName">Nombre público</label>
           <input type="text" id="displayName" name="displayName" placeholder="Tu nombre o medio" />
+        </div>
+        <div class="row" id="avatarRow" style="display:none;">
+          <label for="avatarInput">Foto de perfil</label>
+          <input type="file" id="avatarInput" accept="image/*" />
         </div>
         <div class="row">
           <label for="password">Contraseña</label>
@@ -400,179 +417,347 @@
     </div>
   </div>
 
+  <!-- Profile edit modal -->
+  <div class="modal" id="profileModal" aria-hidden="true">
+    <div class="dialog">
+      <div class="head">
+        <h3>Editar perfil</h3>
+        <button class="btn ghost" id="closeProfile">Cerrar</button>
+      </div>
+      <form class="body" id="profileForm">
+        <div class="row">
+          <label for="profileName">Nombre</label>
+          <input type="text" id="profileName" />
+        </div>
+        <div class="row">
+          <label for="profileBio">Bio</label>
+          <textarea id="profileBio"></textarea>
+        </div>
+        <div class="row">
+          <label for="profileAvatar">Avatar</label>
+          <input type="file" id="profileAvatar" accept="image/*" />
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script>
-    // --- State & Storage -----------------------------------------------------
-    const STORAGE = {
-      users: 'pd_users',
-      session: 'pd_session',
-      posts: 'pd_posts'
+ <!-- Firebase SDKs -->
+<script type="module">
+  // Reemplaza con tu configuración de Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyB5mGkfLPYDUukAw_XjJUcUPVuhj6_gk0A",
+    authDomain: "sin-nada-que-ocultar-rd.firebaseapp.com",
+    projectId: "sin-nada-que-ocultar-rd",
+    storageBucket: "sin-nada-que-ocultar-rd.firebasestorage.app",
+    messagingSenderId: "1054622320892",
+    appId: "1:1054622320892:web:dd3412dcb3ce781e0f2f79"
+  };
+
+  // Reemplaza con tu configuración de Cloudinary
+  const CLOUDINARY = {
+    cloudName: "dxbahdjk1",
+    unsignedPreset: "nearmemarketplace" // crea un upload preset unsigned para demos
+  };
+
+    /* ==================================== */
+
+    // Import Firebase ESM
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+    import { getFirestore, collection, doc, addDoc, setDoc, getDoc, onSnapshot, query, orderBy, updateDoc, serverTimestamp, arrayUnion, arrayRemove, where } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    /* ---------- Utils ---------- */
+    const el = (s) => document.querySelector(s);
+    const els = (s) => Array.from(document.querySelectorAll(s));
+    const toast = (msg) => { const t = el('#toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 1800); };
+    const sanitize = (str) => (str || '').replace(/[<>&]/g, (c) => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c])).trim();
+
+    /* ---------- Theme switch ---------- */
+    const THEME_KEY = 'pd_theme';
+    const applyTheme = (mode) => {
+      document.documentElement.classList.toggle('light', mode === 'light');
+      const toggle = el('#themeSwitch');
+      toggle.classList.toggle('checked', mode === 'light');
+      toggle.setAttribute('aria-checked', mode === 'light' ? 'true' : 'false');
+      el('#themeLabel').textContent = mode === 'light' ? 'Claro' : 'Oscuro';
+      localStorage.setItem(THEME_KEY, mode);
+    };
+    const initTheme = () => applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+    const switchTheme = () => applyTheme(document.documentElement.classList.contains('light') ? 'dark' : 'light');
+    el('#themeSwitch').addEventListener('click', switchTheme);
+    el('#themeSwitch').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); switchTheme(); } });
+
+    /* ---------- Cloudinary upload ---------- */
+    const uploadToCloudinary = async (file) => {
+      const url = `https://api.cloudinary.com/v1_1/${CLOUDINARY.cloudName}/auto/upload`;
+      const form = new FormData();
+      form.append('file', file);
+      form.append('upload_preset', CLOUDINARY.unsignedPreset);
+      const res = await fetch(url, { method: 'POST', body: form });
+      if (!res.ok) throw new Error('Error subiendo medios');
+      const data = await res.json();
+      return { url: data.secure_url, type: file.type.startsWith('video') ? 'video' : 'image' };
     };
 
-    const state = {
-      user: null,
-      media: [], // {type: 'image'|'video', name, dataURL}
-      filter: 'all',
-      view: 'latest'
-    };
+    /* ---------- State ---------- */
+    const state = { user: null, mediaFiles: [], filter: 'all', view: 'latest' };
+    let unsubFeed = null;
 
-    const el = (sel) => document.querySelector(sel);
-    const els = (sel) => Array.from(document.querySelectorAll(sel));
-
-    // --- Utils ---------------------------------------------------------------
-    const toast = (msg) => {
-      const t = el('#toast');
-      t.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 1800);
-    };
-
-    const sanitize = (str) => (str || '')
-      .replace(/[<>&]/g, (c) => ({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]))
-      .trim();
-
-    const loadJSON = (key, fallback) => {
-      try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
-      catch { return fallback; }
-    };
-    const saveJSON = (key, value) => localStorage.setItem(key, JSON.stringify(value));
-
-    const nowISO = () => new Date().toISOString();
-    const fmtTime = (iso) => {
-      const d = new Date(iso);
-      return d.toLocaleString('es-ES', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' });
-    };
-
-    // --- Auth ---------------------------------------------------------------
-    const refreshSessionUI = () => {
-      const session = loadJSON(STORAGE.session, null);
-      state.user = session;
-      const signed = !!session;
+    /* ---------- Session UI ---------- */
+    const refreshSessionUI = async (user) => {
+      const signed = !!user;
       el('#authSigned').classList.toggle('hidden', !signed);
       el('#logout').classList.toggle('hidden', !signed);
       el('#openLogin').classList.toggle('hidden', signed);
       el('#openRegister').classList.toggle('hidden', signed);
+
       if (signed) {
-        el('#userName').textContent = session.displayName || session.email.split('@')[0];
-        el('#userHandle').textContent = '@' + (session.handle || session.email.split('@')[0]);
+        const snap = await getDoc(doc(db, 'profiles', user.uid));
+        const profile = snap.exists() ? snap.data() : { displayName: user.displayName || user.email.split('@')[0], handle: user.email.split('@')[0], avatar: '', bio: '' };
+        el('#userName').textContent = profile.displayName;
+        el('#userHandle').textContent = '@' + (profile.handle || user.email.split('@')[0]);
+        el('#userAvatar').src = profile.avatar || 'https://via.placeholder.com/120?text=Avatar';
       }
     };
 
-    const register = ({ email, password, displayName }) => {
-      email = email.toLowerCase();
-      const users = loadJSON(STORAGE.users, []);
-      if (users.some(u => u.email === email)) throw new Error('Ese correo ya está registrado.');
-      const handle = email.split('@')[0];
-      users.push({ email, password, displayName, handle, createdAt: nowISO() });
-      saveJSON(STORAGE.users, users);
-      saveJSON(STORAGE.session, { email, displayName, handle });
-      toast('Cuenta creada');
-      refreshSessionUI();
+    /* ---------- Feed subscription ---------- */
+    const subscribeFeed = () => {
+      if (unsubFeed) unsubFeed();
+      const qAll = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
+      unsubFeed = onSnapshot(qAll, (snap) => {
+        const all = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        const visible = all.filter(p => p.view === state.view);
+        renderFeed(visible);
+      });
     };
 
-    const login = ({ email, password }) => {
-      email = email.toLowerCase();
-      const users = loadJSON(STORAGE.users, []);
-      const u = users.find(u => u.email === email && u.password === password);
-      if (!u) throw new Error('Datos inválidos. Verifica correo y contraseña.');
-      saveJSON(STORAGE.session, { email: u.email, displayName: u.displayName, handle: u.handle });
-      toast('Sesión iniciada');
-      refreshSessionUI();
-    };
-
-    const logout = () => {
-      localStorage.removeItem(STORAGE.session);
-      toast('Sesión cerrada');
-      refreshSessionUI();
-    };
-
-    // --- Posts --------------------------------------------------------------
-    const getPosts = () => loadJSON(STORAGE.posts, []);
-    const setPosts = (list) => saveJSON(STORAGE.posts, list);
-
-    const addPost = (post) => {
-      const list = getPosts();
-      list.unshift(post); // newest first
-      setPosts(list);
-    };
-
-    const buildMediaGrid = (media) => {
-      if (!media?.length) return '';
-      const items = media.map(m => {
-        if (m.type === 'image') {
-          return `<img src="${m.dataURL}" alt="${sanitize(m.name)}">`;
-        } else {
-          return `<video src="${m.dataURL}" controls playsinline></video>`;
-        }
-      }).join('');
-      const gridClass = media.length === 1 ? 'gallery one' : 'gallery';
-      return `<div class="${gridClass}">${items}</div>`;
-    };
-
-    const renderFeed = () => {
+    /* ---------- Render feed ---------- */
+    const renderFeed = (posts) => {
       const feed = el('#feed');
-      const posts = getPosts()
-        .filter(p => p.view === state.view)
-        .filter(p => {
-          if (state.filter === 'all') return true;
-          if (state.filter === 'text') return !p.media?.length;
-          if (state.filter === 'image') return p.media?.some(m => m.type === 'image');
-          if (state.filter === 'video') return p.media?.some(m => m.type === 'video');
-        });
+      if (state.view === 'profile') { renderProfilePage(); return; }
 
-      if (!posts.length) {
-        feed.innerHTML = `
-          <div class="card">
-            <h3>Sin noticias aún</h3>
-            <p>Publica la primera historia con el botón “Publicar noticia”.</p>
-          </div>`;
+      const filtered = posts.filter(p => {
+        const hasImage = (p.media || []).some(m => m.type === 'image');
+        const hasVideo = (p.media || []).some(m => m.type === 'video');
+        if (state.filter === 'all') return true;
+        if (state.filter === 'text') return !(p.media || []).length;
+        if (state.filter === 'image') return hasImage;
+        if (state.filter === 'video') return hasVideo;
+        return true;
+      });
+
+      if (!filtered.length) {
+        feed.innerHTML = `<div class="card"><h3>Sin noticias en esta sección</h3><p>Publica con “Publicar noticia”.</p></div>`;
         return;
       }
 
-      feed.innerHTML = posts.map(p => `
-        <article class="card">
-          <div class="meta">
-            <span>${sanitize(p.authorName)} <span style="color:var(--muted);">@${sanitize(p.authorHandle)}</span></span>
-            <span>•</span>
-            <span>${fmtTime(p.createdAt)}</span>
-            ${p.tags ? `<span>•</span><span>#${sanitize(p.tags)}</span>` : ''}
-          </div>
-          <h3>${sanitize(p.title)}</h3>
-          <p>${sanitize(p.body)}</p>
-          ${buildMediaGrid(p.media)}
-          <div class="toolbar">
-            <button>💬 Comentar</button>
-            <button>🔁 Compartir</button>
-            <button>❤️ Me gusta</button>
-          </div>
-        </article>
-      `).join('');
+      feed.innerHTML = filtered.map(p => {
+        const gallery = (p.media || []).map(m => m.type === 'image' ? `<img src="${m.url}" alt="">` : `<video src="${m.url}" controls playsinline></video>`).join('');
+        const liked = (p.likes || []).includes(state.user?.uid);
+        const likeCount = (p.likes || []).length;
+        const comments = (p.comments || []);
+        const createdDate = p.createdAt?.toDate ? p.createdAt.toDate() : new Date(p.createdAt);
+        return `
+          <article class="card" data-id="${p.id}">
+            <div class="meta">
+              <span>${sanitize(p.authorName)} <span style="color:var(--muted);">@${sanitize(p.authorHandle)}</span></span>
+              <span>•</span><span>${createdDate.toLocaleString('es-ES', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' })}</span>
+              ${p.tags ? `<span>•</span><span>#${sanitize(p.tags)}</span>` : ''}
+            </div>
+            <h3>${sanitize(p.title)}</h3>
+            <p>${sanitize(p.body)}</p>
+            ${gallery ? `<div class="gallery">${gallery}</div>` : ''}
+            <div class="toolbar">
+              <button class="btn-like" data-id="${p.id}">${liked ? '❤️' : '🤍'} Me gusta (${likeCount})</button>
+              <button class="btn-comment-toggle" data-id="${p.id}">💬 Comentarios (${comments.length})</button>
+              <button class="btn-share" data-id="${p.id}">🔁 Compartir</button>
+            </div>
+            <div class="comments hidden" id="comments-${p.id}">
+              <div class="row" style="grid-template-columns: 1fr auto; gap:8px;">
+                <input type="text" placeholder="Tu comentario..." id="comment-input-${p.id}" />
+                <button class="btn" data-id="${p.id}" id="comment-send-${p.id}">Enviar</button>
+              </div>
+              <div id="comment-list-${p.id}">
+                ${comments.map(c => `
+                  <div class="comment">
+                    <div class="who">${sanitize(c.authorName)} • @${sanitize(c.authorHandle)}</div>
+                    <div class="text">${sanitize(c.text)}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      // Bind like
+      feed.querySelectorAll('.btn-like').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const id = e.currentTarget.dataset.id;
+          if (!state.user) { toast('Inicia sesión para dar like'); return; }
+          const ref = doc(db, 'posts', id);
+          const snap = await getDoc(ref);
+          if (!snap.exists()) return;
+          const likes = snap.data().likes || [];
+          const hasLiked = likes.includes(state.user.uid);
+          await updateDoc(ref, { likes: hasLiked ? arrayRemove(state.user.uid) : arrayUnion(state.user.uid) });
+        });
+      });
+
+      // Toggle comments
+      feed.querySelectorAll('.btn-comment-toggle').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.currentTarget.dataset.id;
+          el(`#comments-${id}`)?.classList.toggle('hidden');
+        });
+      });
+
+      // Send comment (instant + real-time update)
+      filtered.forEach(p => {
+        const sendBtn = el(`#comment-send-${p.id}`);
+        if (sendBtn) {
+          sendBtn.addEventListener('click', async () => {
+            if (!state.user) { toast('Inicia sesión para comentar'); return; }
+            const input = el(`#comment-input-${p.id}`);
+            const text = sanitize(input.value);
+            if (!text) return;
+            const ref = doc(db, 'posts', p.id);
+            // Optimistic UI: añadir al DOM al instante
+            const list = el(`#comment-list-${p.id}`);
+            const temp = document.createElement('div');
+            temp.className = 'comment';
+            temp.innerHTML = `
+              <div class="who">${sanitize(state.user.displayName || state.user.email.split('@')[0])} • @${sanitize(state.user.email.split('@')[0])}</div>
+              <div class="text">${sanitize(text)}</div>
+            `;
+            list.prepend(temp);
+            input.value = '';
+            // Persistencia
+            await updateDoc(ref, {
+              comments: arrayUnion({
+                text,
+                authorId: state.user.uid,
+                authorName: state.user.displayName || state.user.email.split('@')[0],
+                authorHandle: state.user.email.split('@')[0],
+                createdAt: serverTimestamp()
+              })
+            });
+          });
+        }
+      });
+
+      // Share
+      feed.querySelectorAll('.btn-share').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const id = e.currentTarget.dataset.id;
+          const url = location.origin + location.pathname + `#post-${id}`;
+          try { await navigator.clipboard.writeText(url); toast('Enlace copiado'); } catch { toast('No se pudo copiar'); }
+        });
+      });
     };
 
-    // --- Media handling -----------------------------------------------------
-    const resetMedia = () => {
-      state.media = [];
-      el('#previews').innerHTML = '';
+    /* ---------- Profile page ---------- */
+    const renderProfilePage = async () => {
+      const feed = el('#feed');
+      if (!state.user) {
+        feed.innerHTML = `<div class="card"><h3>Inicia sesión para ver tu perfil</h3></div>`;
+        return;
+      }
+      const snap = await getDoc(doc(db, 'profiles', state.user.uid));
+      const p = snap.exists() ? snap.data() : { displayName: state.user.displayName || state.user.email.split('@')[0], handle: state.user.email.split('@')[0], avatar: '', bio: '' };
+
+      // Mis posts
+      const qMine = query(collection(db, 'posts'), where('authorId','==', state.user.uid), orderBy('createdAt','desc'));
+      const postsDiv = document.createElement('div');
+
+      onSnapshot(qMine, (ds) => {
+        const list = ds.docs.map(d => ({ id: d.id, ...d.data() }));
+        postsDiv.innerHTML = list.map(post => `
+          <article class="card">
+            <div class="meta">
+              <span>${sanitize(post.authorName)} • @${sanitize(post.authorHandle)}</span>
+              <span>•</span><span>${(post.createdAt?.toDate ? post.createdAt.toDate() : new Date(post.createdAt)).toLocaleDateString('es-ES')}</span>
+            </div>
+            <h3>${sanitize(post.title)}</h3>
+            <p>${sanitize(post.body)}</p>
+          </article>
+        `).join('') || `<p style="color:var(--muted);">Aún no publicas noticias.</p>`;
+      });
+
+      feed.innerHTML = `
+        <div class="profile-header">
+          <img src="${p.avatar || 'https://via.placeholder.com/120?text=Avatar'}" alt="Avatar">
+          <div class="info">
+            <div class="name">${sanitize(p.displayName)}</div>
+            <div class="handle">@${sanitize(p.handle)}</div>
+            <div class="bio">${sanitize(p.bio || '')}</div>
+            <div style="display:flex; gap:8px; margin-top:8px;">
+              <button class="btn" id="editProfileBtn">Editar perfil</button>
+              <button class="btn" id="copyProfileLink">Compartir perfil</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Tus publicaciones</h3>
+          <div id="myPosts"></div>
+        </div>
+      `;
+      el('#myPosts').replaceWith(postsDiv);
+      postsDiv.id = 'myPosts';
+
+      el('#editProfileBtn').addEventListener('click', () => {
+        el('#profileName').value = p.displayName || '';
+        el('#profileBio').value = p.bio || '';
+        el('#profileModal').classList.add('open');
+        el('#profileModal').setAttribute('aria-hidden', 'false');
+      });
+      el('#copyProfileLink').addEventListener('click', async () => {
+        const url = location.origin + location.pathname + `#user-${state.user.uid}`;
+        try { await navigator.clipboard.writeText(url); toast('Perfil copiado'); } catch { toast('No se pudo copiar'); }
+      });
     };
 
-    const addFiles = async (files) => {
+    /* ---------- Modals ---------- */
+    const openCompose = () => {
+      if (!state.user) { openAuth('login'); toast('Primero inicia sesión'); return; }
+      el('#composeModal').classList.add('open'); el('#composeModal').setAttribute('aria-hidden', 'false');
+      el('#composeError').textContent = ''; el('#composeForm').reset(); state.mediaFiles = []; el('#previews').innerHTML = '';
+    };
+    const closeCompose = () => { el('#composeModal').classList.remove('open'); el('#composeModal').setAttribute('aria-hidden', 'true'); };
+    const openAuth = (mode = 'login') => {
+      el('#authModal').classList.add('open'); el('#authModal').setAttribute('aria-hidden', 'false');
+      el('#authMode').value = mode; el('#authError').textContent = '';
+      el('#authForm').reset();
+      const isRegister = mode === 'register';
+      el('#nameRow').style.display = isRegister ? 'grid' : 'none';
+      el('#avatarRow').style.display = isRegister ? 'grid' : 'none';
+    };
+    const closeAuth = () => { el('#authModal').classList.remove('open'); el('#authModal').setAttribute('aria-hidden', 'true'); };
+    const closeProfile = () => { el('#profileModal').classList.remove('open'); el('#profileModal').setAttribute('aria-hidden', 'true'); };
+
+    /* ---------- Media preview ---------- */
+    const addFilesLocalPreview = async (files) => {
       const tasks = Array.from(files).slice(0, 6).map(file => new Promise((resolve) => {
         const reader = new FileReader();
-        reader.onload = () => {
-          const type = file.type.startsWith('video') ? 'video' : 'image';
-          resolve({ type, name: file.name, dataURL: reader.result });
-        };
+        reader.onload = () => resolve({ name: file.name, type: file.type.startsWith('video') ? 'video' : 'image', dataURL: reader.result, file });
         reader.readAsDataURL(file);
       }));
       const results = await Promise.all(tasks);
-      state.media.push(...results);
+      state.mediaFiles.push(...results);
       renderPreviews();
     };
-
     const renderPreviews = () => {
       const wrap = el('#previews');
-      wrap.innerHTML = state.media.map((m, idx) => `
+      wrap.innerHTML = state.mediaFiles.map((m, idx) => `
         <div class="preview">
           ${m.type === 'image' ? `<img src="${m.dataURL}" alt="${sanitize(m.name)}">` : `<video src="${m.dataURL}" controls></video>`}
           <button type="button" class="remove" data-index="${idx}">Eliminar</button>
@@ -581,192 +766,169 @@
       wrap.querySelectorAll('.remove').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const i = Number(e.currentTarget.dataset.index);
-          state.media.splice(i, 1);
+          state.mediaFiles.splice(i, 1);
           renderPreviews();
         });
       });
     };
 
-    // Drag & drop
-    const dropArea = el('#dropArea');
-    ['dragenter','dragover'].forEach(evt => dropArea.addEventListener(evt, (e) => {
-      e.preventDefault(); e.stopPropagation();
-      dropArea.style.borderColor = '#4aa3ff';
-    }));
-    ['dragleave','drop'].forEach(evt => dropArea.addEventListener(evt, (e) => {
-      e.preventDefault(); e.stopPropagation();
-      dropArea.style.borderColor = '#384355';
-    }));
-    dropArea.addEventListener('drop', (e) => {
-      const files = e.dataTransfer.files;
-      addFiles(files);
-    });
-
-    // --- Compose modal ------------------------------------------------------
-    const openCompose = () => {
-      const signed = !!loadJSON(STORAGE.session, null);
-      if (!signed) {
-        openAuth('login');
-        toast('Primero inicia sesión');
-        return;
-      }
-      el('#composeModal').classList.add('open');
-      el('#composeModal').setAttribute('aria-hidden', 'false');
-      el('#composeError').textContent = '';
-      el('#composeForm').reset();
-      resetMedia();
-    };
-    const closeCompose = () => {
-      el('#composeModal').classList.remove('open');
-      el('#composeModal').setAttribute('aria-hidden', 'true');
-    };
-
-    // --- Auth modal ---------------------------------------------------------
-    const openAuth = (mode = 'login') => {
-      el('#authModal').classList.add('open');
-      el('#authModal').setAttribute('aria-hidden', 'false');
-      el('#authMode').value = mode;
-      el('#authError').textContent = '';
-      el('#authForm').reset();
-      updateAuthMode();
-    };
-    const closeAuth = () => {
-      el('#authModal').classList.remove('open');
-      el('#authModal').setAttribute('aria-hidden', 'true');
-    };
-    const updateAuthMode = () => {
-      const mode = el('#authMode').value;
-      el('#authTitle').textContent = mode === 'login' ? 'Iniciar sesión' : 'Crear cuenta';
-      el('#nameRow').style.display = mode === 'register' ? 'grid' : 'none';
-    };
-
-    // --- Events -------------------------------------------------------------
-    // Sidebar view
-    els('.nav button').forEach(b => b.addEventListener('click', () => {
-      els('.nav button').forEach(x => x.classList.remove('active'));
+    /* ---------- Navigation ---------- */
+    els('.nav .item').forEach(b => b.addEventListener('click', () => {
+      els('.nav .item').forEach(x => x.classList.remove('active'));
       b.classList.add('active');
       state.view = b.dataset.view;
-      renderFeed();
+      el('#centerTitle').textContent = b.dataset.view === 'profile' ? 'Perfil' : 'Portada';
+      if (state.view === 'profile') renderProfilePage(); else subscribeFeed();
     }));
 
-    // Filters
     els('.chip').forEach(c => c.addEventListener('click', () => {
       els('.chip').forEach(x => x.classList.remove('active'));
       c.classList.add('active');
       state.filter = c.dataset.filter;
-      renderFeed();
+      // El feed se re-renderiza desde onSnapshot
     }));
 
-    // Compose
+    /* ---------- Compose ---------- */
     el('#composeBtn').addEventListener('click', openCompose);
     el('#closeCompose').addEventListener('click', closeCompose);
     el('#pickImage').addEventListener('click', () => el('#imageInput').click());
     el('#pickVideo').addEventListener('click', () => el('#videoInput').click());
-    el('#imageInput').addEventListener('change', (e) => addFiles(e.target.files));
-    el('#videoInput').addEventListener('change', (e) => addFiles(e.target.files));
-    el('#clearMedia').addEventListener('click', resetMedia);
+    el('#imageInput').addEventListener('change', (e) => addFilesLocalPreview(e.target.files));
+    el('#videoInput').addEventListener('change', (e) => addFilesLocalPreview(e.target.files));
+    el('#clearMedia').addEventListener('click', () => { state.mediaFiles = []; renderPreviews(); });
 
-    el('#composeForm').addEventListener('submit', (e) => {
+    /* ---------- Publish (cierre inmediato del modal) ---------- */
+    el('#composeForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const err = el('#composeError');
-      err.textContent = '';
+      const err = el('#composeError'); err.textContent = '';
+      const btn = el('#publishBtn');
 
+      if (!state.user) { err.textContent = 'Debes iniciar sesión.'; return; }
       const title = sanitize(el('#title').value);
       const body = sanitize(el('#body').value);
       const category = el('#category').value;
       const tags = sanitize(el('#tags').value);
-      if (!title || !body) {
-        err.textContent = 'Título y cuerpo son obligatorios.';
-        return;
+      if (!title || !body) { err.textContent = 'Título y cuerpo son obligatorios.'; return; }
+
+      try {
+        // UI loading + cierre inmediato del modal
+        btn.classList.add('loading'); btn.disabled = true; btn.textContent = 'Publicando...';
+        const profSnap = await getDoc(doc(db, 'profiles', state.user.uid));
+        const profile = profSnap.exists() ? profSnap.data() : { displayName: state.user.displayName || state.user.email.split('@')[0], handle: state.user.email.split('@')[0] };
+        const uploads = await Promise.all(state.mediaFiles.slice(0,4).map(m => uploadToCloudinary(m.file)));
+        await addDoc(collection(db, 'posts'), {
+          title, body, tags, media: uploads,
+          authorId: state.user.uid,
+          authorEmail: state.user.email,
+          authorName: profile.displayName,
+          authorHandle: profile.handle,
+          createdAt: serverTimestamp(),
+          view: category,
+          likes: [],
+          comments: []
+        });
+        // Cerrar modal y reset inmediato
+        closeCompose();
+        state.mediaFiles = []; el('#previews').innerHTML='';
+        toast('Noticia publicada');
+        // Volver a la sección del post
+        state.view = category;
+        els('.nav .item').forEach(x => x.classList.toggle('active', x.dataset.view === category));
+        el('#centerTitle').textContent = 'Portada';
+      } catch (ex) {
+        err.textContent = ex.message || 'Error publicando.';
+      } finally {
+        btn.classList.remove('loading'); btn.disabled = false; btn.textContent = 'Publicar';
       }
-      const session = loadJSON(STORAGE.session, null);
-      const post = {
-        id: crypto.randomUUID(),
-        title, body, tags,
-        media: state.media.slice(0,4),
-        authorEmail: session.email,
-        authorName: session.displayName || session.email.split('@')[0],
-        authorHandle: session.handle,
-        createdAt: nowISO(),
-        view: category
-      };
-      addPost(post);
-      toast('Noticia publicada');
-      closeCompose();
-      renderFeed();
     });
 
-    // Auth
+    /* ---------- Auth ---------- */
     el('#openLogin').addEventListener('click', () => openAuth('login'));
     el('#openRegister').addEventListener('click', () => openAuth('register'));
     el('#closeAuth').addEventListener('click', closeAuth);
-    el('#authMode').addEventListener('change', updateAuthMode);
-    el('#logout').addEventListener('click', logout);
+    el('#logout').addEventListener('click', async () => { await signOut(auth); toast('Sesión cerrada'); });
 
-    el('#authForm').addEventListener('submit', (e) => {
+    el('#authMode').addEventListener('change', (e) => {
+      const isRegister = e.target.value === 'register';
+      el('#nameRow').style.display = isRegister ? 'grid' : 'none';
+      el('#avatarRow').style.display = isRegister ? 'grid' : 'none';
+    });
+
+    el('#authForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const mode = el('#authMode').value;
       const email = el('#email').value;
       const password = el('#password').value;
-      const displayName = el('#displayName').value;
-      const err = el('#authError');
-      err.textContent = '';
+      const displayName = el('#displayName').value.trim();
+      const avatarFile = el('#avatarInput').files?.[0];
+      const err = el('#authError'); err.textContent = '';
+      const btn = el('#authSubmit'); btn.disabled = true; btn.textContent = 'Procesando...';
 
       try {
         if (mode === 'register') {
-          if (!displayName.trim()) throw new Error('Ingresa un nombre público.');
-          register({ email, password, displayName });
+          if (!displayName) throw new Error('Ingresa un nombre público.');
+          const cred = await createUserWithEmailAndPassword(auth, email, password);
+          let avatarUrl = '';
+          if (avatarFile) { const up = await uploadToCloudinary(avatarFile); avatarUrl = up.url; }
+          await updateProfile(cred.user, { displayName });
+          const handle = email.split('@')[0];
+          await setDoc(doc(db, 'profiles', cred.user.uid), { displayName, handle, avatar: avatarUrl, bio: '', createdAt: serverTimestamp() });
+          toast('Cuenta creada'); closeAuth();
         } else {
-          login({ email, password });
+          await signInWithEmailAndPassword(auth, email, password);
+          toast('Sesión iniciada'); closeAuth();
         }
-        closeAuth();
       } catch (ex) {
         err.textContent = ex.message || 'Error de autenticación.';
+      } finally {
+        btn.disabled = false; btn.textContent = 'Continuar';
       }
     });
 
-    // --- Boot ---------------------------------------------------------------
-    (function init(){
-      refreshSessionUI();
-      if (!getPosts().length) {
-        // Seed demo posts
-        const demo = [
-          {
-            id: crypto.randomUUID(),
-            title: 'Plan de movilidad urbana avanza con nuevos corredores',
-            body: 'La autoridad informó la ampliación de rutas y la integración de sistemas de pago digitales.',
-            tags: 'movilidad, ciudad',
-            media: [],
-            authorEmail: 'redaccion@medio.com',
-            authorName: 'Redacción',
-            authorHandle: 'medio',
-            createdAt: nowISO(),
-            view: 'latest'
-          },
-          {
-            id: crypto.randomUUID(),
-            title: 'Presentan centro de innovación en IA',
-            body: 'El nuevo hub busca impulsar proyectos de datos y aprendizaje automático en la región.',
-            tags: 'tecnología, innovación',
-            media: [],
-            authorEmail: 'tech@medio.com',
-            authorName: 'Tecnología',
-            authorHandle: 'tecnologia',
-            createdAt: nowISO(),
-            view: 'tech'
-          }
-        ];
-        setPosts(demo);
-      }
-      renderFeed();
-    })();
+    /* ---------- Profile edit ---------- */
+    el('#closeProfile').addEventListener('click', closeProfile);
+    el('#profileForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!state.user) return;
+      const name = sanitize(el('#profileName').value);
+      const bio = sanitize(el('#profileBio').value);
+      const avatarFile = el('#profileAvatar').files?.[0];
 
-    // Close modals on Escape
+      try {
+        let avatarUrl;
+        if (avatarFile) { const up = await uploadToCloudinary(avatarFile); avatarUrl = up.url; }
+        await updateDoc(doc(db, 'profiles', state.user.uid), { displayName: name, bio, ...(avatarUrl ? { avatar: avatarUrl } : {}) });
+        if (name) await updateProfile(auth.currentUser, { displayName: name });
+        toast('Perfil actualizado');
+        closeProfile();
+        refreshSessionUI(state.user);
+        if (state.view === 'profile') renderProfilePage();
+      } catch (ex) {
+        toast(ex.message || 'Error actualizando perfil');
+      }
+    });
+
+    /* ---------- Drag & drop compose ---------- */
+    const dropArea = el('#dropArea');
+    ['dragenter','dragover'].forEach(evt => dropArea.addEventListener(evt, (e) => { e.preventDefault(); e.stopPropagation(); dropArea.style.borderColor = 'var(--primary)'; }));
+    ['dragleave','drop'].forEach(evt => dropArea.addEventListener(evt, (e) => { e.preventDefault(); e.stopPropagation(); dropArea.style.borderColor = '#3a4757'; }));
+    dropArea.addEventListener('drop', (e) => addFilesLocalPreview(e.dataTransfer.files));
+
+    /* ---------- Keyboard close modals ---------- */
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeCompose(); closeAuth();
-      }
+      if (e.key === 'Escape') { closeCompose(); closeAuth(); closeProfile(); }
     });
+
+    /* ---------- Auth state ---------- */
+    onAuthStateChanged(auth, async (user) => {
+      state.user = user || null;
+      await refreshSessionUI(user);
+      if (state.view === 'profile') renderProfilePage(); else subscribeFeed();
+    });
+
+    /* ---------- Init ---------- */
+    initTheme();
+    subscribeFeed();
   </script>
 </body>
 </html>
