@@ -3,64 +3,74 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>El Metro Diario — Portada estilo Twitter</title>
+  <title>El Metro Diario — Portada estilo Twitter profesional</title>
   <style>
     :root{
       --bg:#0b0e11; --card:#12161a; --text:#e8edf2; --muted:#9fb0c0;
-      --accent:#226bff; --accent2:#ff6a3d; --border:#20252b; --card2:#0f1418;
+      --accent:#1f67ff; --accent2:#ff6a3d; --border:#20252b; --card2:#0f1418;
       --headline:#f7fafc; --body:#dfe7ef; --shadow: 0 18px 44px rgba(0,0,0,.35);
       --ok:#39d98a; --warn:#ffcf5a; --err:#ff6b6b;
     }
     [data-theme="light"]{
-      --bg:#f7f9fc; --card:#ffffff; --card2:#f2f4f8; --text:#131720; --muted:#51606f;
-      --border:#dfe5ec; --accent:#1e60ff; --accent2:#ff5c2b; --headline:#0e1216; --body:#2a3a48;
-      --shadow: 0 16px 34px rgba(0,0,0,.08);
+      --bg:#f7f9fc; --card:#ffffff; --card2:#f2f4f8; --text:#12161c; --muted:#51606f;
+      --border:#dfe5ec; --accent:#1f67ff; --accent2:#ff5c2b; --headline:#0e1216; --body:#2a3a48; --shadow: 0 16px 34px rgba(0,0,0,.08);
     }
-
+    *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
     a{color:var(--accent);text-decoration:none}
     img{max-width:100%;display:block}
-    *{box-sizing:border-box}
 
     /* Header */
-    header{position:sticky;top:0;z-index:50;background:rgba(11,14,17,0.78);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--border)}
+    header{position:sticky;top:0;z-index:1000;background:rgba(11,14,17,0.8);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--border)}
     [data-theme="light"] header{background:rgba(255,255,255,.9)}
-    .nav{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px;max-width:1120px;margin:0 auto}
+    .nav{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px;max-width:1180px;margin:0 auto}
     .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:38px;height:38px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 28px rgba(34,96,255,.25)}
+    .logo{width:38px;height:38px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 28px rgba(34,96,255,.22)}
     .brand h1{font-size:20px;margin:0;color:var(--headline)}
     .actions{display:flex;gap:10px;align-items:center}
-    .btn{padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);cursor:pointer;transition:transform .06s}
-    .btn.primary{background:linear-gradient(135deg,var(--accent),#4a86ff);border-color:var(--accent);color:white}
+    .btn{padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);cursor:pointer;transition:transform .06s, box-shadow .2s}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),#4a86ff);border-color:var(--accent);color:white;box-shadow:0 10px 28px rgba(34,96,255,.22)}
     .btn.ghost{background:transparent}
     .btn:active{transform:scale(.98)}
     .switch{position:relative;width:48px;height:26px;border-radius:999px;background:var(--card2);border:1px solid var(--border);cursor:pointer}
     .knob{position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .25s}
+    [data-theme="dark"] .knob{background:linear-gradient(180deg,#20242a,#12161a)}
     .switch.active .knob{transform:translateX(22px)}
 
-    .headerAvatar{
-      width:34px;height:34px;border-radius:999px;background:var(--card2);border:1px solid var(--border);
-      display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px;overflow:hidden
+    /* Profile chip + menu */
+    .headerProfile{position:relative}
+    .profileChip{
+      display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:var(--card2);cursor:pointer;
     }
-    .headerAvatar img{width:100%;height:100%;object-fit:cover}
+    .profileAvatar{width:26px;height:26px;border-radius:999px;overflow:hidden;background:var(--card);border:1px solid var(--border)}
+    .profileAvatar img{width:100%;height:100%;object-fit:cover}
+    .profileName{font-size:12px;color:var(--muted);max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .profileMenu{
+      position:absolute;right:0;top:42px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);
+      display:none;min-width:220px;padding:8px;animation:fadeIn .16s ease;
+    }
+    .profileMenuItem{display:flex;gap:8px;align-items:center;padding:8px;border-radius:10px;cursor:pointer}
+    .profileMenuItem:hover{background:var(--card2)}
+    .profileMenu hr{border:none;border-top:1px solid var(--border);margin:8px 0}
 
     .searchbar{display:flex;gap:8px;align-items:center;justify-content:center;padding:12px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
     .searchbar input{flex:0 1 360px;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;color:var(--text)}
 
     /* Layout principal */
-    main{max-width:1120px;margin:24px auto;padding:0 16px;display:grid;grid-template-columns:1fr;gap:20px}
+    main{max-width:1180px;margin:24px auto;padding:0 16px;display:grid;grid-template-columns:1fr;gap:20px}
 
-    /* Feed estilo Twitter (alineado a la izquierda) */
+    /* Feed estilo Twitter (columna izquierda) */
     .feed{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
     .section-title{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border)}
     .tweetList{
-      display:flex;flex-direction:column;align-items:flex-start; /* alineado a la izquierda */
-      max-width:740px; /* columna principal */
+      display:flex;flex-direction:column;align-items:flex-start;
+      max-width:760px;
     }
     .tweet{
       width:100%;
       display:grid;grid-template-columns:56px 1fr;gap:12px;
       padding:14px 16px;border-bottom:1px solid var(--border);background:var(--card);
+      animation:fadeIn .18s ease;
     }
     .tweet:hover{background:var(--card2)}
     .avatar{
@@ -82,9 +92,9 @@
     .react.active{color:var(--accent2)}
     .feedStatus{font-size:12px;color:var(--muted);padding:8px 14px;border-top:1px solid var(--border)}
 
-    /* Vista de lectura (encabezado a la izquierda, cuerpo centrado) */
+    /* Vista de lectura (encabezado izq, cuerpo centrado) */
     .postView{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:none}
-    .reader{padding:18px;max-width:740px;margin:0 auto}
+    .reader{padding:18px;max-width:760px;margin:0 auto}
     .cover{width:100%;border-radius:16px;overflow:hidden;background:var(--card2)}
     .cover img{width:100%;height:auto;max-height:520px;object-fit:cover}
     .readerTitle{margin:16px 0 6px;font-size:34px;color:var(--headline);font-family:Merriweather, Georgia, serif;text-align:left}
@@ -103,12 +113,13 @@
     .readerFooter{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:12px;margin-top:16px;justify-content:center}
 
     /* Composer estilo Twitter (centrado y organizado) */
-    .composerModal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:200}
+    .composerModal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:200;animation:fadeIn .16s ease}
     .tweetComposer{
-      width:720px;max-width:96%;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);
-      display:grid;grid-template-columns:56px 1fr;gap:12px;padding:14px 16px
+      width:760px;max-width:96%;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);
+      display:grid;grid-template-columns:56px 1fr;gap:12px;padding:14px 16px;animation:slideUp .18s ease;
     }
-    .tweetComposer .avatar{width:40px;height:40px;border-radius:999px;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+    .tweetComposer .avatar{width:40px;height:40px;border-radius:999px;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);overflow:hidden}
+    .tweetComposer .avatar img{width:100%;height:100%;object-fit:cover}
     .composerTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
     .composerTop .btn{border-radius:999px}
     .composerTitle input{
@@ -127,6 +138,9 @@
     .composerActions{display:flex;gap:8px;justify-content:center;margin-top:10px}
     .composerActions .btn.primary{border-radius:999px;padding:8px 16px}
     .composeStatus{text-align:center;font-size:12px;color:var(--muted);margin-top:6px;min-height:18px}
+
+    @keyframes fadeIn{from{opacity:.0} to{opacity:1}}
+    @keyframes slideUp{from{transform:translateY(6px);opacity:.0} to{transform:none;opacity:1}}
   </style>
 </head>
 <body>
@@ -138,14 +152,25 @@
       </div>
       <div class="actions">
         <div id="themeSwitch" class="switch" title="Tema"><div class="knob"></div></div>
-        <div id="headerAvatar" class="headerAvatar" title="Cuenta">
-          <span>ED</span>
+
+        <div class="headerProfile">
+          <div id="profileChip" class="profileChip" style="display:none">
+            <div class="profileAvatar"><img id="profileImg" alt=""></div>
+            <div class="profileName" id="profileName">Mi cuenta</div>
+          </div>
+          <div id="profileMenu" class="profileMenu">
+            <div class="profileMenuItem"><div class="profileAvatar"><img id="menuImg" alt=""></div><div id="menuName">Nombre</div></div>
+            <hr />
+            <div class="profileMenuItem" id="openComposerFromMenu">✍️ Nueva publicación</div>
+            <div class="profileMenuItem" id="logoutBtn">🚪 Cerrar sesión</div>
+          </div>
         </div>
+
         <button id="loginBtn" class="btn">Iniciar sesión</button>
-        <button id="logoutBtn" class="btn ghost" style="display:none">Salir</button>
         <button id="openComposer" class="btn primary">Publicar</button>
       </div>
     </div>
+
     <div class="searchbar">
       <input id="q" type="search" placeholder="Buscar noticias..." />
     </div>
@@ -189,7 +214,7 @@
   <!-- Modal composer tipo Twitter -->
   <div class="composerModal" id="composerModal">
     <div class="tweetComposer">
-      <div class="avatar" id="composerAvatar"><span>ED</span></div>
+      <div class="avatar" id="composerAvatar"><img id="composerImg" alt="" style="display:none"><span id="composerFallback">ED</span></div>
       <div>
         <div class="composerTop">
           <strong>Crear publicación</strong>
@@ -230,7 +255,7 @@
       posts: [],
       likes: JSON.parse(localStorage.getItem("likes") || "{}"),
       theme: localStorage.getItem("theme") || "dark",
-      user: null,            // { email, accessToken }
+      user: null,            // { email, name, picture, accessToken }
       uploadDataUrls: []
     };
 
@@ -295,27 +320,45 @@
       return { mins, words, deck };
     }
     function debounce(fn, wait){ let t; return (...args) => { clearTimeout(t); t = setTimeout(()=>fn(...args), wait); }; }
-    function emailToInitials(email){
-      if (!email) return "ED";
-      const name = email.split("@")[0];
-      return (name[0] || "E").toUpperCase() + (name[1] || "D").toUpperCase();
-    }
-    function setHeaderAvatar(email){
-      const el = document.getElementById("headerAvatar");
-      el.innerHTML = "";
-      const span = document.createElement("span");
-      span.textContent = emailToInitials(email);
-      el.appendChild(span);
-    }
-    function setComposerAvatar(email){
-      const el = document.getElementById("composerAvatar");
-      el.innerHTML = "";
-      const span = document.createElement("span");
-      span.textContent = emailToInitials(email);
-      el.appendChild(span);
+
+    // ===== Perfil: mostrar chip y menú flotante =====
+    function showProfileChip({name, email, picture}){
+      const chip = document.getElementById("profileChip");
+      const img = document.getElementById("profileImg");
+      const nameEl = document.getElementById("profileName");
+      const menu = document.getElementById("profileMenu");
+      const menuImg = document.getElementById("menuImg");
+      const menuName = document.getElementById("menuName");
+
+      img.src = picture || "";
+      img.style.display = picture ? "block" : "none";
+      nameEl.textContent = name || email || "Mi cuenta";
+      menuImg.src = picture || "";
+      menuName.textContent = name || email || "Mi cuenta";
+      chip.style.display = "flex";
+
+      chip.onclick = () => {
+        menu.style.display = (menu.style.display === "block") ? "none" : "block";
+      };
+      document.addEventListener("click", (e)=>{
+        if (!chip.contains(e.target) && !menu.contains(e.target)) menu.style.display = "none";
+      });
+      document.getElementById("openComposerFromMenu").onclick = () => {
+        menu.style.display = "none";
+        openComposer();
+      };
+      document.getElementById("logoutBtn").onclick = logout;
     }
 
-    // ===== OAuth (Google) =====
+    // ===== Autenticación Google OAuth (perfil + blogger) =====
+    // Scopes: blogger + perfil/email para obtener imagen y nombre
+    const OAUTH_SCOPES = [
+      "https://www.googleapis.com/auth/blogger",
+      "https://www.googleapis.com/auth/userinfo.email",
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "openid"
+    ].join(" ");
+
     (function setupAuth(){
       const s = document.createElement("script");
       s.src = "https://accounts.google.com/gsi/client";
@@ -325,16 +368,28 @@
         document.getElementById("loginBtn").addEventListener("click", () => {
           const client = google.accounts.oauth2.initTokenClient({
             client_id: GOOGLE_CLIENT_ID,
-            scope: "https://www.googleapis.com/auth/blogger",
+            scope: OAUTH_SCOPES,
             prompt: "consent",
-            callback: (resp) => {
+            callback: async (resp) => {
               if (resp && resp.access_token) {
-                state.user = { accessToken: resp.access_token, email: null };
-                document.getElementById("loginBtn").style.display = "none";
-                document.getElementById("logoutBtn").style.display = "inline-block";
-                setHeaderAvatar(state.user.email);
-                setComposerAvatar(state.user.email);
-                notify("Autenticado. Ya puedes publicar.", "ok");
+                try {
+                  const ui = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+                    headers: { Authorization: `Bearer ${resp.access_token}` }
+                  }).then(r => r.json());
+                  state.user = {
+                    accessToken: resp.access_token,
+                    email: ui.email,
+                    name: ui.name,
+                    picture: ui.picture
+                  };
+                  document.getElementById("loginBtn").style.display = "none";
+                  showProfileChip(state.user);
+                  updateComposerAvatar(state.user);
+                  notify("Autenticado. Ya puedes publicar.", "ok");
+                } catch(e){
+                  state.user = { accessToken: resp.access_token };
+                  notify("Autenticado sin perfil. Intentar de nuevo.", "warn");
+                }
               } else {
                 notify("No se obtuvo token de acceso.", "err");
               }
@@ -342,17 +397,30 @@
           });
           client.requestAccessToken();
         });
-        document.getElementById("logoutBtn").addEventListener("click", () => {
-          state.user = null;
-          setHeaderAvatar(null);
-          setComposerAvatar(null);
-          notify("Sesión cerrada.", "warn");
-          document.getElementById("loginBtn").style.display = "inline-block";
-          document.getElementById("logoutBtn").style.display = "none";
-        });
       };
       document.head.appendChild(s);
     })();
+
+    function logout(){
+      state.user = null;
+      document.getElementById("profileChip").style.display = "none";
+      document.getElementById("profileMenu").style.display = "none";
+      document.getElementById("loginBtn").style.display = "inline-block";
+      notify("Sesión cerrada.", "warn");
+    }
+
+    function updateComposerAvatar(user){
+      const img = document.getElementById("composerImg");
+      const fallback = document.getElementById("composerFallback");
+      if (user?.picture) {
+        img.src = user.picture;
+        img.style.display = "block";
+        fallback.style.display = "none";
+      } else {
+        img.style.display = "none";
+        fallback.style.display = "inline";
+      }
+    }
 
     // ===== API Blogger (lectura) =====
     async function fetchPosts({ q = "", maxResults = 25 } = {}) {
@@ -564,15 +632,12 @@
       }
     });
 
-    // ===== Composer tipo Twitter =====
+    // ===== Composer =====
     const composerModal = document.getElementById("composerModal");
-    document.getElementById("openComposer").addEventListener("click", () => {
-      composerModal.style.display = "flex";
-      setComposerAvatar(state.user?.email || null);
-    });
+    function openComposer(){ composerModal.style.display = "flex"; updateComposerAvatar(state.user); }
+    document.getElementById("openComposer").addEventListener("click", openComposer);
     document.getElementById("closeComposer").addEventListener("click", () => composerModal.style.display = "none");
 
-    // Toolbar rápida (execCommand básico)
     document.querySelectorAll(".composerToolbar .btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const cmd = btn.getAttribute("data-cmd");
@@ -588,7 +653,6 @@
       });
     });
 
-    // Preview imágenes
     document.getElementById("newImages").addEventListener("change", function(){
       const preview = document.getElementById("previewImgs");
       preview.innerHTML = "";
@@ -606,7 +670,7 @@
       });
     });
 
-    // Publicar
+    // ===== Publicar con manejo de 403 =====
     document.getElementById("publishBtn").addEventListener("click", async () => {
       const title = document.getElementById("newTitle").value.trim();
       const editor = document.getElementById("editor");
@@ -631,7 +695,16 @@
         });
         if (!res.ok) {
           const t = await res.text();
-          throw new Error(t);
+          let hint = "";
+          try {
+            const j = JSON.parse(t);
+            const code = j?.error?.code;
+            const reason = j?.error?.errors?.[0]?.reason;
+            if (code === 403 || reason === "forbidden") {
+              hint = " • Verifica que la cuenta autenticada tenga rol de autor/administrador en este blog de Blogger y que el Client ID tenga el origen (localhost) autorizado.";
+            }
+          } catch {}
+          throw new Error(t + hint);
         }
         composeStatus.style.color = "var(--ok)";
         composeStatus.textContent = "Publicado.";
