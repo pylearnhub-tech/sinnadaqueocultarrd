@@ -13,57 +13,54 @@
     }
     [data-theme="light"]{
       --bg:#f7f9fc; --card:#ffffff; --card2:#f2f4f8; --text:#131720; --muted:#51606f;
-      --border:#dfe5ec; --accent:#1e60ff; --accent2:#ff5c2b; --headline:#0e1216; --body:#2a3a48; --shadow: 0 16px 34px rgba(0,0,0,.08);
-    }
-
-    @font-face {
-      font-family: "Merriweather";
-      font-style: normal; font-weight: 400;
-      src: url("https://fonts.gstatic.com/s/merriweather/v30/u-4k0qyriQwlOrhSvowK_l5-eRZJ.woff2") format("woff2");
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "Merriweather";
-      font-style: normal; font-weight: 700;
-      src: url("https://fonts.gstatic.com/s/merriweather/v30/u-4k0qyriQwlOrhSvowK_l5-eRZM.woff2") format("woff2");
-      font-display: swap;
+      --border:#dfe5ec; --accent:#1e60ff; --accent2:#ff5c2b; --headline:#0e1216; --body:#2a3a48;
+      --shadow: 0 16px 34px rgba(0,0,0,.08);
     }
 
     html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
     a{color:var(--accent);text-decoration:none}
     img{max-width:100%;display:block}
+    *{box-sizing:border-box}
 
-    header{position:sticky;top:0;z-index:50;background:rgba(11,14,17,0.75);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--border)}
-    [data-theme="light"] header{background:rgba(255,255,255,.85)}
+    /* Header */
+    header{position:sticky;top:0;z-index:50;background:rgba(11,14,17,0.78);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--border)}
+    [data-theme="light"] header{background:rgba(255,255,255,.9)}
     .nav{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px;max-width:1120px;margin:0 auto}
     .brand{display:flex;align-items:center;gap:12px}
     .logo{width:38px;height:38px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 28px rgba(34,96,255,.25)}
     .brand h1{font-size:20px;margin:0;color:var(--headline)}
     .actions{display:flex;gap:10px;align-items:center}
-    .btn{padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);cursor:pointer;transition:transform .08s ease, box-shadow .2s ease}
-    .btn.primary{background:linear-gradient(135deg,var(--accent),#4a86ff);border-color:var(--accent);color:white;box-shadow:0 10px 28px rgba(34,96,255,.25)}
+    .btn{padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text);cursor:pointer;transition:transform .06s}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),#4a86ff);border-color:var(--accent);color:white}
     .btn.ghost{background:transparent}
     .btn:active{transform:scale(.98)}
     .switch{position:relative;width:48px;height:26px;border-radius:999px;background:var(--card2);border:1px solid var(--border);cursor:pointer}
-    .knob{position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:linear-gradient(180deg,#fff,#e6e6e6);box-shadow:0 4px 12px rgba(0,0,0,.25);transition:transform .25s}
-    [data-theme="dark"] .knob{background:linear-gradient(180deg,#20242a,#12161a)}
+    .knob{position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .25s}
     .switch.active .knob{transform:translateX(22px)}
 
-    .searchbar{display:flex;gap:8px;align-items:center;justify-content:center;padding:12px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);max-width:1120px;margin:0 auto}
-    .searchbar input, .searchbar select{flex:0 1 320px;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);text-align:center}
+    .headerAvatar{
+      width:34px;height:34px;border-radius:999px;background:var(--card2);border:1px solid var(--border);
+      display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px;overflow:hidden
+    }
+    .headerAvatar img{width:100%;height:100%;object-fit:cover}
 
+    .searchbar{display:flex;gap:8px;align-items:center;justify-content:center;padding:12px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .searchbar input{flex:0 1 360px;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;color:var(--text)}
+
+    /* Layout principal */
     main{max-width:1120px;margin:24px auto;padding:0 16px;display:grid;grid-template-columns:1fr;gap:20px}
 
-    /* Feed estilo Twitter (limpio y centrado) */
+    /* Feed estilo Twitter (alineado a la izquierda) */
     .feed{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
-    .section-title{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border);justify-content:center}
-    .pulse{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(34,96,255,.6);animation:pulse 1.6s infinite}
-    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,96,255,.6)}70%{box-shadow:0 0 0 12px rgba(34,96,255,0)}100%{box-shadow:0 0 0 0 rgba(34,96,255,0)}}
-
-    .tweetList{display:grid;grid-template-columns:minmax(0, 740px);justify-content:center}
+    .section-title{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border)}
+    .tweetList{
+      display:flex;flex-direction:column;align-items:flex-start; /* alineado a la izquierda */
+      max-width:740px; /* columna principal */
+    }
     .tweet{
-      display:grid;grid-template-columns:56px 1fr;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);background:var(--card);
-      animation:fadeIn .25s ease;
+      width:100%;
+      display:grid;grid-template-columns:56px 1fr;gap:12px;
+      padding:14px 16px;border-bottom:1px solid var(--border);background:var(--card);
     }
     .tweet:hover{background:var(--card2)}
     .avatar{
@@ -72,9 +69,9 @@
     }
     .avatar img{width:100%;height:100%;object-fit:cover}
     .tweetHeader{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .tweetTitle{font-size:20px;line-height:1.35;margin:0;color:var(--headline);font-weight:800;font-family:Inter,system-ui,Roboto,Arial,sans-serif}
+    .tweetTitle{font-size:20px;margin:0;color:var(--headline);font-weight:800}
     .tweetMeta{font-size:12px;color:var(--muted)}
-    .tweetExcerpt{font-size:15px;color:var(--body);margin-top:6px;line-height:1.7}
+    .tweetExcerpt{font-size:15px;color:var(--body);margin-top:6px}
     .tweetThumb{margin-top:10px;border-radius:12px;overflow:hidden;background:var(--card2)}
     .tweetThumb img{width:100%;height:auto;display:block;object-fit:cover}
     .tweetTags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
@@ -83,57 +80,53 @@
     .tweetActions{display:flex;gap:12px;margin-top:10px}
     .react{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer;user-select:none}
     .react.active{color:var(--accent2)}
-    .feedStatus{font-size:12px;color:var(--muted);padding:8px 14px;border-top:1px solid var(--border);text-align:center}
+    .feedStatus{font-size:12px;color:var(--muted);padding:8px 14px;border-top:1px solid var(--border)}
 
-    /* Vista de lectura */
+    /* Vista de lectura (encabezado a la izquierda, cuerpo centrado) */
     .postView{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:none}
     .reader{padding:18px;max-width:740px;margin:0 auto}
-    .cover{width:100%;border-radius:16px;overflow:hidden;background:var(--card2);box-shadow:var(--shadow)}
-    .cover img{
-      width:100%;height:auto;display:block;object-fit:cover;image-rendering:auto;transform:translateZ(0);
-      max-height:520px;
+    .cover{width:100%;border-radius:16px;overflow:hidden;background:var(--card2)}
+    .cover img{width:100%;height:auto;max-height:520px;object-fit:cover}
+    .readerTitle{margin:16px 0 6px;font-size:34px;color:var(--headline);font-family:Merriweather, Georgia, serif;text-align:left}
+    .readerDeck{color:var(--body);font-size:18px;font-family:Merriweather, Georgia, serif;text-align:left}
+    .readerMeta{color:var(--muted);font-size:13px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px;justify-content:flex-start}
+    .readerTags{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start}
+    .readerActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;justify-content:flex-start}
+    .readerBody{
+      margin-top:16px;line-height:1.85;font-size:18px;color:var(--body);
+      text-align:center; /* solo cuerpo centrado */
+      font-family:Merriweather, Georgia, serif;
     }
-    .readerTitle{margin:16px 0 6px;font-size:34px;color:var(--headline);font-family:Merriweather, Georgia, serif;letter-spacing:.2px;text-align:center}
-    .readerDeck{color:var(--body);font-size:18px;font-family:Merriweather, Georgia, serif;text-align:center}
-    .readerMeta{color:var(--muted);font-size:13px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px;justify-content:center}
-    .readerTags{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-    .readerActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;justify-content:center}
-    .readerBody{margin-top:16px;line-height:1.85;font-size:18px;color:var(--body);font-family:Merriweather, Georgia, serif}
     .readerBody p{margin:0 0 14px 0}
-    .readerBody h2,.readerBody h3{color:var(--headline);margin:20px 0 8px;font-family:Merriweather, Georgia, serif;text-align:center}
-    .readerBody img{border-radius:14px;box-shadow:var(--shadow);margin:12px auto;display:block}
+    .readerBody h2,.readerBody h3{color:var(--headline);margin:20px 0 8px}
+    .readerBody img{border-radius:14px;margin:12px auto;display:block}
     .readerFooter{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:12px;margin-top:16px;justify-content:center}
 
-    /* Modal composer tipo Twitter (centrado y organizado) */
-    .composerModal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:200;animation:fadeIn .2s}
+    /* Composer estilo Twitter (centrado y organizado) */
+    .composerModal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:200}
     .tweetComposer{
       width:720px;max-width:96%;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);
-      display:grid;grid-template-columns:56px 1fr;gap:12px;padding:14px 16px;animation:slideUp .22s ease;
+      display:grid;grid-template-columns:56px 1fr;gap:12px;padding:14px 16px
     }
-    .tweetComposer .avatar{width:40px;height:40px;border-radius:999px;background:var(--card2);border:1px solid var(--border);margin-top:4px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px;overflow:hidden}
-    .tweetComposer .avatar img{width:100%;height:100%;object-fit:cover}
+    .tweetComposer .avatar{width:40px;height:40px;border-radius:999px;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted)}
     .composerTop{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
     .composerTop .btn{border-radius:999px}
     .composerTitle input{
       width:100%;padding:12px;background:var(--card2);border:1px solid var(--border);border-radius:12px;color:var(--text);
-      font-size:18px;font-weight:700;margin-bottom:8px;text-align:center;box-sizing:border-box
+      font-size:18px;font-weight:700;text-align:center
     }
     .composerEditor{
       min-height:160px;padding:12px;background:var(--card2);border:1px solid var(--border);border-radius:12px;color:var(--text);
     }
     .composerEditor[contenteditable="true"]{outline:none}
     .composerToolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;justify-content:center}
-    .composerToolbar .btn{padding:6px 10px}
-    .uploader{margin-top:10px;text-align:center}
+    .uploader{text-align:center;margin-top:10px}
     .uploader input[type="file"]{display:inline-block}
     .previewImgs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;justify-content:center}
     .previewImgs img{width:110px;height:110px;object-fit:cover;border-radius:12px;border:1px solid var(--border)}
     .composerActions{display:flex;gap:8px;justify-content:center;margin-top:10px}
     .composerActions .btn.primary{border-radius:999px;padding:8px 16px}
-    .composeStatus{font-size:12px;color:var(--muted);margin-top:6px;min-height:18px;text-align:center}
-
-    @keyframes fadeIn{from{opacity:.0} to{opacity:1}}
-    @keyframes slideUp{from{transform:translateY(8px);opacity:.0} to{transform:none;opacity:1}}
+    .composeStatus{text-align:center;font-size:12px;color:var(--muted);margin-top:6px;min-height:18px}
   </style>
 </head>
 <body>
@@ -142,10 +135,12 @@
       <div class="brand">
         <div class="logo"></div>
         <h1>El Metro Diario</h1>
-        <span class="tag" style="border:1px solid var(--border);padding:4px 8px;border-radius:999px">Blogger ID: 5213119795675357751</span>
       </div>
       <div class="actions">
         <div id="themeSwitch" class="switch" title="Tema"><div class="knob"></div></div>
+        <div id="headerAvatar" class="headerAvatar" title="Cuenta">
+          <span>ED</span>
+        </div>
         <button id="loginBtn" class="btn">Iniciar sesión</button>
         <button id="logoutBtn" class="btn ghost" style="display:none">Salir</button>
         <button id="openComposer" class="btn primary">Publicar</button>
@@ -153,20 +148,20 @@
     </div>
     <div class="searchbar">
       <input id="q" type="search" placeholder="Buscar noticias..." />
-      <select id="labelFilter"><option value="">Todas las etiquetas</option></select>
-      <button id="refreshBtn" class="btn">Actualizar</button>
     </div>
   </header>
 
   <main>
+    <!-- Portada: timeline alineada a la izquierda -->
     <section class="feed">
-      <div class="section-title"><div class="pulse"></div><strong>Portada</strong></div>
+      <div class="section-title"><strong>Portada</strong></div>
       <div id="tweetList" class="tweetList"></div>
       <div id="feedStatus" class="feedStatus"></div>
     </section>
 
+    <!-- Lectura: encabezado a la izquierda, cuerpo centrado -->
     <section class="postView">
-      <div class="section-title"><div class="pulse"></div><strong>Lectura</strong></div>
+      <div class="section-title"><strong>Lectura</strong></div>
       <div class="reader">
         <div class="cover" id="viewCover"></div>
         <h1 class="readerTitle" id="viewTitle"></h1>
@@ -176,7 +171,7 @@
           <span>•</span>
           <span id="viewReadTime">⏱︎ 0 min</span>
         </div>
-        <div class="readerTags tags" id="viewLabels"></div>
+        <div class="readerTags" id="viewLabels"></div>
         <div class="readerActions">
           <button class="btn" id="viewShare">Compartir</button>
           <button class="btn" id="viewCopyLink">Copiar enlace</button>
@@ -288,7 +283,7 @@
       const imgs = extractImages(html);
       return imgs[0] || "";
     }
-    function extractExcerpt(html, len=200){
+    function extractExcerpt(html, len=220){
       const text = new DOMParser().parseFromString(html, "text/html").body.textContent || "";
       return text.length > len ? text.slice(0, len).trim() + "…" : text;
     }
@@ -300,14 +295,27 @@
       return { mins, words, deck };
     }
     function debounce(fn, wait){ let t; return (...args) => { clearTimeout(t); t = setTimeout(()=>fn(...args), wait); }; }
-
     function emailToInitials(email){
       if (!email) return "ED";
       const name = email.split("@")[0];
-      return name.slice(0,2).toUpperCase();
+      return (name[0] || "E").toUpperCase() + (name[1] || "D").toUpperCase();
+    }
+    function setHeaderAvatar(email){
+      const el = document.getElementById("headerAvatar");
+      el.innerHTML = "";
+      const span = document.createElement("span");
+      span.textContent = emailToInitials(email);
+      el.appendChild(span);
+    }
+    function setComposerAvatar(email){
+      const el = document.getElementById("composerAvatar");
+      el.innerHTML = "";
+      const span = document.createElement("span");
+      span.textContent = emailToInitials(email);
+      el.appendChild(span);
     }
 
-    // ===== Autenticación Google OAuth (VS Code: localhost permitido) =====
+    // ===== OAuth (Google) =====
     (function setupAuth(){
       const s = document.createElement("script");
       s.src = "https://accounts.google.com/gsi/client";
@@ -324,7 +332,8 @@
                 state.user = { accessToken: resp.access_token, email: null };
                 document.getElementById("loginBtn").style.display = "none";
                 document.getElementById("logoutBtn").style.display = "inline-block";
-                updateComposerAvatar();
+                setHeaderAvatar(state.user.email);
+                setComposerAvatar(state.user.email);
                 notify("Autenticado. Ya puedes publicar.", "ok");
               } else {
                 notify("No se obtuvo token de acceso.", "err");
@@ -335,7 +344,8 @@
         });
         document.getElementById("logoutBtn").addEventListener("click", () => {
           state.user = null;
-          updateComposerAvatar();
+          setHeaderAvatar(null);
+          setComposerAvatar(null);
           notify("Sesión cerrada.", "warn");
           document.getElementById("loginBtn").style.display = "inline-block";
           document.getElementById("logoutBtn").style.display = "none";
@@ -344,17 +354,8 @@
       document.head.appendChild(s);
     })();
 
-    function updateComposerAvatar(){
-      const avatar = document.getElementById("composerAvatar");
-      avatar.innerHTML = "";
-      const initials = emailToInitials(state.user?.email || "editor@blogger.com");
-      const span = document.createElement("span");
-      span.textContent = initials;
-      avatar.appendChild(span);
-    }
-
     // ===== API Blogger (lectura) =====
-    async function fetchPosts({ q = "", label = "", maxResults = 25 } = {}) {
+    async function fetchPosts({ q = "", maxResults = 25 } = {}) {
       const params = new URLSearchParams({
         key: API_KEY,
         fetchBodies: "true",
@@ -362,24 +363,23 @@
         fields: "items(id,title,content,labels,author/displayName,published,url,selfLink),nextPageToken"
       });
       if (q) params.set("q", q);
-      if (label) params.set("labels", label);
       const url = `https://www.googleapis.com/blogger/v3/blogs/${BLOG_ID}/posts?${params.toString()}`;
       const res = await fetch(url);
       if (!res.ok) throw new Error("Error al cargar posts");
       return res.json();
     }
 
-    // ===== Feed estilo Twitter (organizado y nítido) =====
+    // ===== Feed (timeline izquierda) =====
     function renderFeed(items) {
       const list = document.getElementById("tweetList");
       list.innerHTML = "";
       if (!items || !items.length) {
-        list.innerHTML = `<div style="padding:14px;text-align:center">No hay noticias para mostrar.</div>`;
+        list.innerHTML = `<div style="padding:14px">No hay noticias para mostrar.</div>`;
         return;
       }
       items.forEach(p => {
         const thumb = extractThumb(p.content);
-        const excerpt = extractExcerpt(p.content, 200);
+        const excerpt = extractExcerpt(p.content, 220);
         const labels = p.labels || [];
         const likeCount = state.likes[p.id]?.count || 0;
         const liked = !!state.likes[p.id]?.liked;
@@ -387,7 +387,6 @@
 
         const el = document.createElement("article");
         el.className = "tweet";
-        // Avatar usa las iniciales del autor (o del email si lo integras)
         const initials = (p.author?.displayName || "ED").slice(0,2).toUpperCase();
         el.innerHTML = `
           <div class="avatar"><span>${initials}</span></div>
@@ -398,7 +397,7 @@
             </div>
             <div class="tweetExcerpt">${escapeHtml(excerpt)}</div>
             ${thumb ? `<div class="tweetThumb"><img src="${thumb}" alt=""></div>` : ""}
-            <div class="tweetTags">${labels.map(l => `<span class="tag" data-label="${escapeHtml(l)}">${escapeHtml(l)}</span>`).join("")}</div>
+            <div class="tweetTags">${labels.map(l => `<span class="tag">${escapeHtml(l)}</span>`).join("")}</div>
             <div class="tweetActions">
               <div class="react ${liked ? "active": ""}" data-like="${p.id}">❤️ <span>${likeCount}</span></div>
               <div class="react" data-share="${p.id}">🔗 Compartir</div>
@@ -423,7 +422,7 @@
       });
       list.querySelectorAll(".tag").forEach(t => {
         t.addEventListener("click", () => {
-          document.getElementById("labelFilter").value = t.getAttribute("data-label");
+          document.getElementById("q").value = t.textContent;
           load();
         });
       });
@@ -474,7 +473,7 @@
       notify._t = setTimeout(()=>{ el.textContent = ""; }, 3500);
     }
 
-    // ===== Lectura =====
+    // ===== Lectura (encabezado izq, cuerpo centrado) =====
     function openPost(p) {
       document.querySelector(".feed").style.display = "none";
       document.querySelector(".postView").style.display = "block";
@@ -512,7 +511,7 @@
         try { await navigator.clipboard.writeText(url); notify("Enlace copiado.", "ok"); } catch(e){ notify("No se pudo copiar.", "err"); }
       };
 
-      // Cuerpo: respetar el HTML original, normalizando imágenes a s1600 y centrando
+      // Cuerpo: respetar HTML original, normalizando imágenes (s1600) y centrando
       const body = document.getElementById("viewContent");
       body.innerHTML = "";
       const doc = new DOMParser().parseFromString(cleanedHtml, "text/html");
@@ -569,10 +568,11 @@
     const composerModal = document.getElementById("composerModal");
     document.getElementById("openComposer").addEventListener("click", () => {
       composerModal.style.display = "flex";
-      updateComposerAvatar();
+      setComposerAvatar(state.user?.email || null);
     });
     document.getElementById("closeComposer").addEventListener("click", () => composerModal.style.display = "none");
 
+    // Toolbar rápida (execCommand básico)
     document.querySelectorAll(".composerToolbar .btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const cmd = btn.getAttribute("data-cmd");
@@ -588,6 +588,7 @@
       });
     });
 
+    // Preview imágenes
     document.getElementById("newImages").addEventListener("change", function(){
       const preview = document.getElementById("previewImgs");
       preview.innerHTML = "";
@@ -605,6 +606,7 @@
       });
     });
 
+    // Publicar
     document.getElementById("publishBtn").addEventListener("click", async () => {
       const title = document.getElementById("newTitle").value.trim();
       const editor = document.getElementById("editor");
@@ -641,20 +643,17 @@
       }
     });
 
-    // ===== Búsqueda y filtros =====
-    document.getElementById("refreshBtn").addEventListener("click", load);
+    // ===== Búsqueda =====
     document.getElementById("q").addEventListener("input", debounce(load, 350));
-    document.getElementById("labelFilter").addEventListener("change", load);
 
     // ===== Carga inicial =====
     async function load() {
       const q = document.getElementById("q").value.trim();
-      const label = document.getElementById("labelFilter").value;
       const status = document.getElementById("feedStatus");
       status.style.color = "var(--muted)";
       status.textContent = "Cargando noticias…";
       try {
-        const data = await fetchPosts({ q, label, maxResults: 25 });
+        const data = await fetchPosts({ q, maxResults: 25 });
         state.posts = data.items || [];
         renderFeed(state.posts);
         status.textContent = `Mostrando ${state.posts.length} noticias.`;
@@ -662,6 +661,13 @@
       } catch (err) {
         status.style.color = "var(--err)";
         status.textContent = "No se pudieron cargar las noticias.";
+      }
+    }
+    function restoreFromUrl(){
+      const postId = new URLSearchParams(location.search).get("post");
+      if (postId) {
+        const post = state.posts.find(x => x.id === postId);
+        if (post) openPost(post);
       }
     }
 
