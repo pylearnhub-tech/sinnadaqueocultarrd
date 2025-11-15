@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>El Metro Diario — Portada estilo Twitter profesional</title>
+  <title>El Metro Diario — Hilo profesional</title>
   <style>
     :root{
       --bg:#0b0e11; --card:#12161a; --text:#e8edf2; --muted:#9fb0c0;
       --accent:#1f67ff; --accent2:#ff6a3d; --border:#20252b; --card2:#0f1418;
-      --headline:#f7fafc; --body:#dfe7ef; --shadow: 0 18px 44px rgba(0,0,0,.35);
+      --headline:#f7fafc; --body:#dfe7ef; --shadow:0 20px 48px rgba(0,0,0,.35);
       --ok:#39d98a; --warn:#ffcf5a; --err:#ff6b6b;
     }
     [data-theme="light"]{
       --bg:#f7f9fc; --card:#ffffff; --card2:#f2f4f8; --text:#12161c; --muted:#51606f;
-      --border:#dfe5ec; --accent:#1f67ff; --accent2:#ff5c2b; --headline:#0e1216; --body:#2a3a48; --shadow: 0 16px 34px rgba(0,0,0,.08);
+      --border:#dfe5ec; --accent:#1f67ff; --accent2:#ff5c2b; --headline:#0e1216; --body:#2a3a48; --shadow:0 16px 34px rgba(0,0,0,.08);
     }
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
@@ -23,7 +23,7 @@
     /* Header */
     header{position:sticky;top:0;z-index:1000;background:rgba(11,14,17,0.8);backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid var(--border)}
     [data-theme="light"] header{background:rgba(255,255,255,.9)}
-    .nav{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px;max-width:1180px;margin:0 auto}
+    .nav{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px;max-width:1200px;margin:0 auto}
     .brand{display:flex;align-items:center;gap:12px}
     .logo{width:38px;height:38px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 28px rgba(34,96,255,.22)}
     .brand h1{font-size:20px;margin:0;color:var(--headline)}
@@ -44,10 +44,10 @@
     }
     .profileAvatar{width:26px;height:26px;border-radius:999px;overflow:hidden;background:var(--card);border:1px solid var(--border)}
     .profileAvatar img{width:100%;height:100%;object-fit:cover}
-    .profileName{font-size:12px;color:var(--muted);max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .profileName{font-size:12px;color:var(--muted);max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .profileMenu{
       position:absolute;right:0;top:42px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);
-      display:none;min-width:220px;padding:8px;animation:fadeIn .16s ease;
+      display:none;min-width:240px;padding:8px;animation:fadeIn .16s ease;
     }
     .profileMenuItem{display:flex;gap:8px;align-items:center;padding:8px;border-radius:10px;cursor:pointer}
     .profileMenuItem:hover{background:var(--card2)}
@@ -56,63 +56,70 @@
     .searchbar{display:flex;gap:8px;align-items:center;justify-content:center;padding:12px 16px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
     .searchbar input{flex:0 1 360px;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center;color:var(--text)}
 
-    /* Layout principal */
-    main{max-width:1180px;margin:24px auto;padding:0 16px;display:grid;grid-template-columns:1fr;gap:20px}
+    /* Layout principal: hilo izquierda + columna derecha */
+    main{max-width:1200px;margin:24px auto;padding:0 16px;display:grid;grid-template-columns:1.6fr .9fr;gap:20px}
+    @media (max-width: 980px){ main{grid-template-columns:1fr} }
 
-    /* Feed estilo Twitter (columna izquierda) */
+    /* Hilo (feed) */
     .feed{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
     .section-title{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border)}
-    .tweetList{
-      display:flex;flex-direction:column;align-items:flex-start;
-      max-width:760px;
-    }
-    .tweet{
-      width:100%;
-      display:grid;grid-template-columns:56px 1fr;gap:12px;
+    .thread{display:flex;flex-direction:column;align-items:flex-start;max-width:780px}
+    .post{
+      width:100%;display:grid;grid-template-columns:56px 1fr;gap:12px;
       padding:14px 16px;border-bottom:1px solid var(--border);background:var(--card);
       animation:fadeIn .18s ease;
     }
-    .tweet:hover{background:var(--card2)}
+    .post:hover{background:var(--card2)}
     .avatar{
       width:40px;height:40px;border-radius:999px;background:var(--card2);border:1px solid var(--border);
       display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:11px;overflow:hidden
     }
     .avatar img{width:100%;height:100%;object-fit:cover}
-    .tweetHeader{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-    .tweetTitle{font-size:20px;margin:0;color:var(--headline);font-weight:800}
-    .tweetMeta{font-size:12px;color:var(--muted)}
-    .tweetExcerpt{font-size:15px;color:var(--body);margin-top:6px}
-    .tweetThumb{margin-top:10px;border-radius:12px;overflow:hidden;background:var(--card2)}
-    .tweetThumb img{width:100%;height:auto;display:block;object-fit:cover}
-    .tweetTags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .postHeader{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .postTitle{font-size:20px;margin:0;color:var(--headline);font-weight:800}
+    .postMeta{font-size:12px;color:var(--muted)}
+    .postExcerpt{font-size:15px;color:var(--body);margin-top:6px}
+    .thumbGrid{margin-top:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+    .thumbGrid img{
+      width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;image-rendering:auto;
+      filter:contrast(105%) saturate(105%); /* nitidez percibida */
+    }
+    .postTags{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
     .tag{font-size:12px;color:#cfe7ff;background:var(--card2);border:1px solid var(--border);padding:4px 8px;border-radius:999px}
     [data-theme="light"] .tag{color:#284560}
-    .tweetActions{display:flex;gap:12px;margin-top:10px}
+    .postActions{display:flex;gap:12px;margin-top:10px}
     .react{font-size:12px;color:var(--muted);display:flex;gap:6px;align-items:center;cursor:pointer;user-select:none}
     .react.active{color:var(--accent2)}
     .feedStatus{font-size:12px;color:var(--muted);padding:8px 14px;border-top:1px solid var(--border)}
 
-    /* Vista de lectura (encabezado izq, cuerpo centrado) */
-    .postView{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);display:none}
-    .reader{padding:18px;max-width:760px;margin:0 auto}
+    /* Columna derecha */
+    .rightbar{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+    .rightHeader{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--border)}
+    .rightBox{padding:14px}
+    .stat{display:flex;justify-content:space-between;font-size:14px;color:var(--body);padding:8px 0;border-bottom:1px dashed var(--border)}
+    .stat:last-child{border-bottom:none}
+
+    /* Lectura profesional */
+    .readerPanel{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);grid-column:1 / -1;display:none}
+    .reader{padding:18px;max-width:900px;margin:0 auto}
     .cover{width:100%;border-radius:16px;overflow:hidden;background:var(--card2)}
-    .cover img{width:100%;height:auto;max-height:520px;object-fit:cover}
+    .cover img{width:100%;height:auto;max-height:480px;object-fit:cover}
     .readerTitle{margin:16px 0 6px;font-size:34px;color:var(--headline);font-family:Merriweather, Georgia, serif;text-align:left}
     .readerDeck{color:var(--body);font-size:18px;font-family:Merriweather, Georgia, serif;text-align:left}
     .readerMeta{color:var(--muted);font-size:13px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px;justify-content:flex-start}
     .readerTags{margin-top:6px;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-start}
     .readerActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;justify-content:flex-start}
     .readerBody{
-      margin-top:16px;line-height:1.85;font-size:18px;color:var(--body);
+      margin-top:16px;line-height:1.9;font-size:18px;color:var(--body);
       text-align:center; /* solo cuerpo centrado */
       font-family:Merriweather, Georgia, serif;
     }
-    .readerBody p{margin:0 0 14px 0}
+    .readerBody p{margin:0 0 16px 0}
     .readerBody h2,.readerBody h3{color:var(--headline);margin:20px 0 8px}
-    .readerBody img{border-radius:14px;margin:12px auto;display:block}
+    .readerBody img{border-radius:14px;margin:12px auto;display:block;max-width:95%}
     .readerFooter{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:12px;margin-top:16px;justify-content:center}
 
-    /* Composer estilo Twitter (centrado y organizado) */
+    /* Composer */
     .composerModal{position:fixed;inset:0;background:rgba(0,0,0,.65);display:none;align-items:center;justify-content:center;z-index:200;animation:fadeIn .16s ease}
     .tweetComposer{
       width:760px;max-width:96%;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);
@@ -159,7 +166,13 @@
             <div class="profileName" id="profileName">Mi cuenta</div>
           </div>
           <div id="profileMenu" class="profileMenu">
-            <div class="profileMenuItem"><div class="profileAvatar"><img id="menuImg" alt=""></div><div id="menuName">Nombre</div></div>
+            <div class="profileMenuItem">
+              <div class="profileAvatar"><img id="menuImg" alt=""></div>
+              <div>
+                <div id="menuName" style="font-weight:600;color:var(--headline)">Nombre</div>
+                <div id="menuEmail" style="font-size:12px;color:var(--muted)">email</div>
+              </div>
+            </div>
             <hr />
             <div class="profileMenuItem" id="openComposerFromMenu">✍️ Nueva publicación</div>
             <div class="profileMenuItem" id="logoutBtn">🚪 Cerrar sesión</div>
@@ -177,15 +190,30 @@
   </header>
 
   <main>
-    <!-- Portada: timeline alineada a la izquierda -->
+    <!-- Hilo izquierda -->
     <section class="feed">
       <div class="section-title"><strong>Portada</strong></div>
-      <div id="tweetList" class="tweetList"></div>
+      <div id="thread" class="thread"></div>
       <div id="feedStatus" class="feedStatus"></div>
     </section>
 
-    <!-- Lectura: encabezado a la izquierda, cuerpo centrado -->
-    <section class="postView">
+    <!-- Columna derecha -->
+    <aside class="rightbar">
+      <div class="rightHeader"><strong>Panel</strong></div>
+      <div class="rightBox">
+        <div class="stat"><span>Noticias</span><span id="statPosts">0</span></div>
+        <div class="stat"><span>Imágenes</span><span id="statImages">0</span></div>
+        <div class="stat"><span>Mis publicaciones locales</span><span id="statLocal">0</span></div>
+      </div>
+      <div class="rightHeader"><strong>Accesos</strong></div>
+      <div class="rightBox">
+        <button class="btn" id="openReaderPanel">Abrir lector</button>
+        <button class="btn ghost" id="backHome" style="margin-top:8px">Portada</button>
+      </div>
+    </aside>
+
+    <!-- Lectura profesional -->
+    <section class="readerPanel">
       <div class="section-title"><strong>Lectura</strong></div>
       <div class="reader">
         <div class="cover" id="viewCover"></div>
@@ -211,7 +239,7 @@
     </section>
   </main>
 
-  <!-- Modal composer tipo Twitter -->
+  <!-- Composer local -->
   <div class="composerModal" id="composerModal">
     <div class="tweetComposer">
       <div class="avatar" id="composerAvatar"><img id="composerImg" alt="" style="display:none"><span id="composerFallback">ED</span></div>
@@ -245,21 +273,22 @@
   </div>
 
   <script>
-    // ===== Configuración =====
+    // ===== Config =====
     const BLOG_ID = "5213119795675357751";
     const API_KEY = "AIzaSyCARk0pc3s7y3VLUTi6LNuSpP-FD2l7OtI";
     const GOOGLE_CLIENT_ID = "723966225091-ge8ai8v13m60l7g9bma5b4hsuqmuh01n.apps.googleusercontent.com";
 
-    // ===== Estado =====
+    // ===== State =====
     const state = {
       posts: [],
+      localPosts: JSON.parse(localStorage.getItem("localPosts") || "[]"), // comentarios => posts locales
       likes: JSON.parse(localStorage.getItem("likes") || "{}"),
       theme: localStorage.getItem("theme") || "dark",
-      user: null,            // { email, name, picture, accessToken }
+      user: null, // { name, email, picture, accessToken }
       uploadDataUrls: []
     };
 
-    // ===== Tema =====
+    // ===== Theme =====
     function applyTheme() {
       document.documentElement.setAttribute("data-theme", state.theme);
       const sw = document.getElementById("themeSwitch");
@@ -273,40 +302,17 @@
     document.getElementById("themeSwitch").addEventListener("click", toggleTheme);
     applyTheme();
 
-    // ===== Utilidades =====
+    // ===== Utils =====
     const fmtDate = iso => new Date(iso).toLocaleString("es-DO", { dateStyle: "medium", timeStyle: "short" });
     function escapeHtml(s=""){ return s.replace(/[&<>"']/g, m => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[m])); }
     function cleanUnwanted(html){
       let safe = html || "";
-      const unwanted = [
-        "Noticiaswww.sinnadaqueocultarrd",
-        "noticiaswww.sinnadaqueocultarrd.com",
-        "www.sinnadaqueocultarrd.com",
-        "sinnadaqueocultarrd.com"
-      ];
-      unwanted.forEach(s => { safe = safe.replaceAll(s, ""); });
+      ["Noticiaswww.sinnadaqueocultarrd","noticiaswww.sinnadaqueocultarrd.com","www.sinnadaqueocultarrd.com","sinnadaqueocultarrd.com"].forEach(s => { safe = safe.replaceAll(s, ""); });
       return safe;
     }
     function extractImages(html){
       const doc = new DOMParser().parseFromString(html, "text/html");
-      return [...doc.querySelectorAll("img")].map(img => upscaleBloggerImage(img.src)).filter(Boolean);
-    }
-    function isLowRes(url=""){
-      return /\/s(1?\d{2,3}|3\d{2})\//.test(url) || /=s(1?\d{2,3}|3\d{2})/.test(url);
-    }
-    function upscaleBloggerImage(url=""){
-      if (!url) return url;
-      try {
-        return url
-          .replace(/\/s\d+\//, "/s1600/")
-          .replace(/=s\d+(-c)?/i, "=s1600")
-          .replace(/w\d+-h\d+-p-k-no-nu\//i, "s1600/")
-          .replace(/-w\d+-h\d+(-p)?/i, "");
-      } catch { return url; }
-    }
-    function extractThumb(html){
-      const imgs = extractImages(html);
-      return imgs[0] || "";
+      return [...doc.querySelectorAll("img")].map(img => img.src).filter(Boolean);
     }
     function extractExcerpt(html, len=220){
       const text = new DOMParser().parseFromString(html, "text/html").body.textContent || "";
@@ -321,39 +327,33 @@
     }
     function debounce(fn, wait){ let t; return (...args) => { clearTimeout(t); t = setTimeout(()=>fn(...args), wait); }; }
 
-    // ===== Perfil: mostrar chip y menú flotante =====
+    // ===== Profile UI =====
     function showProfileChip({name, email, picture}){
       const chip = document.getElementById("profileChip");
       const img = document.getElementById("profileImg");
       const nameEl = document.getElementById("profileName");
       const menu = document.getElementById("profileMenu");
-      const menuImg = document.getElementById("menuImg");
-      const menuName = document.getElementById("menuName");
-
+      document.getElementById("menuImg").src = picture || "";
+      document.getElementById("menuName").textContent = name || "Usuario";
+      document.getElementById("menuEmail").textContent = email || "";
       img.src = picture || "";
       img.style.display = picture ? "block" : "none";
       nameEl.textContent = name || email || "Mi cuenta";
-      menuImg.src = picture || "";
-      menuName.textContent = name || email || "Mi cuenta";
       chip.style.display = "flex";
-
-      chip.onclick = () => {
-        menu.style.display = (menu.style.display === "block") ? "none" : "block";
-      };
-      document.addEventListener("click", (e)=>{
-        if (!chip.contains(e.target) && !menu.contains(e.target)) menu.style.display = "none";
-      });
-      document.getElementById("openComposerFromMenu").onclick = () => {
-        menu.style.display = "none";
-        openComposer();
-      };
+      chip.onclick = () => { menu.style.display = (menu.style.display === "block") ? "none" : "block"; };
+      document.addEventListener("click", (e)=>{ if (!chip.contains(e.target) && !menu.contains(e.target)) menu.style.display = "none"; });
+      document.getElementById("openComposerFromMenu").onclick = () => { menu.style.display = "none"; openComposer(); };
       document.getElementById("logoutBtn").onclick = logout;
     }
+    function updateComposerAvatar(user){
+      const img = document.getElementById("composerImg");
+      const fallback = document.getElementById("composerFallback");
+      if (user?.picture) { img.src = user.picture; img.style.display="block"; fallback.style.display="none"; }
+      else { img.style.display="none"; fallback.style.display="inline"; }
+    }
 
-    // ===== Autenticación Google OAuth (perfil + blogger) =====
-    // Scopes: blogger + perfil/email para obtener imagen y nombre
+    // ===== OAuth for profile only (no Blogger write) =====
     const OAUTH_SCOPES = [
-      "https://www.googleapis.com/auth/blogger",
       "https://www.googleapis.com/auth/userinfo.email",
       "https://www.googleapis.com/auth/userinfo.profile",
       "openid"
@@ -362,8 +362,7 @@
     (function setupAuth(){
       const s = document.createElement("script");
       s.src = "https://accounts.google.com/gsi/client";
-      s.async = true;
-      s.defer = true;
+      s.async = true; s.defer = true;
       s.onload = () => {
         document.getElementById("loginBtn").addEventListener("click", () => {
           const client = google.accounts.oauth2.initTokenClient({
@@ -373,26 +372,14 @@
             callback: async (resp) => {
               if (resp && resp.access_token) {
                 try {
-                  const ui = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-                    headers: { Authorization: `Bearer ${resp.access_token}` }
-                  }).then(r => r.json());
-                  state.user = {
-                    accessToken: resp.access_token,
-                    email: ui.email,
-                    name: ui.name,
-                    picture: ui.picture
-                  };
+                  const ui = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", { headers:{ Authorization:`Bearer ${resp.access_token}` } }).then(r=>r.json());
+                  state.user = { accessToken: resp.access_token, email: ui.email, name: ui.name, picture: ui.picture };
                   document.getElementById("loginBtn").style.display = "none";
                   showProfileChip(state.user);
                   updateComposerAvatar(state.user);
-                  notify("Autenticado. Ya puedes publicar.", "ok");
-                } catch(e){
-                  state.user = { accessToken: resp.access_token };
-                  notify("Autenticado sin perfil. Intentar de nuevo.", "warn");
-                }
-              } else {
-                notify("No se obtuvo token de acceso.", "err");
-              }
+                  notify("Autenticado.", "ok");
+                } catch(e){ notify("No se pudo obtener el perfil.", "err"); }
+              } else { notify("Sin token.", "err"); }
             }
           });
           client.requestAccessToken();
@@ -400,7 +387,6 @@
       };
       document.head.appendChild(s);
     })();
-
     function logout(){
       state.user = null;
       document.getElementById("profileChip").style.display = "none";
@@ -409,25 +395,10 @@
       notify("Sesión cerrada.", "warn");
     }
 
-    function updateComposerAvatar(user){
-      const img = document.getElementById("composerImg");
-      const fallback = document.getElementById("composerFallback");
-      if (user?.picture) {
-        img.src = user.picture;
-        img.style.display = "block";
-        fallback.style.display = "none";
-      } else {
-        img.style.display = "none";
-        fallback.style.display = "inline";
-      }
-    }
-
-    // ===== API Blogger (lectura) =====
+    // ===== Blogger (read-only) =====
     async function fetchPosts({ q = "", maxResults = 25 } = {}) {
       const params = new URLSearchParams({
-        key: API_KEY,
-        fetchBodies: "true",
-        maxResults: String(maxResults),
+        key: API_KEY, fetchBodies: "true", maxResults: String(maxResults),
         fields: "items(id,title,content,labels,author/displayName,published,url,selfLink),nextPageToken"
       });
       if (q) params.set("q", q);
@@ -437,61 +408,56 @@
       return res.json();
     }
 
-    // ===== Feed (timeline izquierda) =====
-    function renderFeed(items) {
-      const list = document.getElementById("tweetList");
+    // ===== Render thread (Blogger + local on top) =====
+    function renderThread() {
+      const list = document.getElementById("thread");
       list.innerHTML = "";
-      if (!items || !items.length) {
-        list.innerHTML = `<div style="padding:14px">No hay noticias para mostrar.</div>`;
-        return;
-      }
-      items.forEach(p => {
-        const thumb = extractThumb(p.content);
-        const excerpt = extractExcerpt(p.content, 220);
-        const labels = p.labels || [];
-        const likeCount = state.likes[p.id]?.count || 0;
-        const liked = !!state.likes[p.id]?.liked;
-        const { mins } = estimateReadTime(p.content || "");
+      const items = [
+        ...state.localPosts.map(lp => ({ ...lp, isLocal: true })), // local first
+        ...state.posts.map(p => ({ ...p, isLocal: false }))
+      ];
 
-        const el = document.createElement("article");
-        el.className = "tweet";
-        const initials = (p.author?.displayName || "ED").slice(0,2).toUpperCase();
-        el.innerHTML = `
-          <div class="avatar"><span>${initials}</span></div>
+      items.forEach(p => {
+        const container = document.createElement("article");
+        container.className = "post";
+
+        const initials = p.isLocal
+          ? (state.user?.name || "ED").slice(0,2).toUpperCase()
+          : (p.author?.displayName || "ED").slice(0,2).toUpperCase();
+
+        // images
+        const imgs = p.isLocal ? (p.images||[]) : extractImages(p.content||"");
+        const thumbs = imgs.slice(0,6); // grid smaller thumbs
+        const excerpt = p.isLocal ? extractExcerpt(p.content, 220) : extractExcerpt(p.content, 220);
+        const { mins } = p.isLocal ? estimateReadTime(p.content) : estimateReadTime(p.content||"");
+
+        container.innerHTML = `
+          <div class="avatar">${p.isLocal && state.user?.picture ? `<img src="${state.user.picture}" alt="">` : `<span>${initials}</span>`}</div>
           <div>
-            <div class="tweetHeader">
-              <h3 class="tweetTitle"><a href="#" data-id="${p.id}" class="open-post">${escapeHtml(p.title)}</a></h3>
-              <span class="tweetMeta">• ${fmtDate(p.published)} • Por ${escapeHtml(p.author?.displayName || "Desconocido")} • ⏱︎ ${mins} min</span>
+            <div class="postHeader">
+              <h3 class="postTitle"><a href="#" data-open="${p.isLocal ? p.localId : p.id}" data-local="${p.isLocal ? 1 : 0}" class="open-post">${escapeHtml(p.title||"(Sin título)")}</a></h3>
+              <span class="postMeta">• ${p.isLocal ? fmtDate(p.published) : fmtDate(p.published)} • ⏱︎ ${mins} min</span>
             </div>
-            <div class="tweetExcerpt">${escapeHtml(excerpt)}</div>
-            ${thumb ? `<div class="tweetThumb"><img src="${thumb}" alt=""></div>` : ""}
-            <div class="tweetTags">${labels.map(l => `<span class="tag">${escapeHtml(l)}</span>`).join("")}</div>
-            <div class="tweetActions">
-              <div class="react ${liked ? "active": ""}" data-like="${p.id}">❤️ <span>${likeCount}</span></div>
-              <div class="react" data-share="${p.id}">🔗 Compartir</div>
+            <div class="postExcerpt">${escapeHtml(excerpt)}</div>
+            ${thumbs.length ? `<div class="thumbGrid">${thumbs.map(src => `<img src="${src}" alt="">`).join("")}</div>` : ""}
+            <div class="postTags">${(p.labels||[]).map(l => `<span class="tag">${escapeHtml(l)}</span>`).join("")}</div>
+            <div class="postActions">
+              <div class="react" data-like="${p.isLocal ? p.localId : p.id}">❤️ <span>${state.likes[p.isLocal ? p.localId : p.id]?.count || 0}</span></div>
+              <div class="react" data-share="${p.isLocal ? p.localId : p.id}">🔗 Compartir</div>
             </div>
           </div>
         `;
-        list.appendChild(el);
+        list.appendChild(container);
       });
 
+      // events
       list.querySelectorAll(".open-post").forEach(a => {
         a.addEventListener("click", (e) => {
           e.preventDefault();
-          const id = a.getAttribute("data-id");
-          const post = state.posts.find(x => x.id === id);
-          if (post) {
-            openPost(post);
-            const url = new URL(location.href);
-            url.searchParams.set("post", id);
-            history.pushState({ view: "post", id }, "", url.toString());
-          }
-        });
-      });
-      list.querySelectorAll(".tag").forEach(t => {
-        t.addEventListener("click", () => {
-          document.getElementById("q").value = t.textContent;
-          load();
+          const id = a.getAttribute("data-open");
+          const isLocal = a.getAttribute("data-local") === "1";
+          const post = isLocal ? state.localPosts.find(x => String(x.localId) === String(id)) : state.posts.find(x => x.id === id);
+          if (post) openReader(post, isLocal);
         });
       });
       list.querySelectorAll("[data-like]").forEach(btn => {
@@ -503,13 +469,92 @@
       list.querySelectorAll("[data-share]").forEach(btn => {
         btn.addEventListener("click", async () => {
           const id = btn.getAttribute("data-share");
-          const post = state.posts.find(x => x.id === id);
+          const post = state.localPosts.find(x=>String(x.localId)===String(id)) || state.posts.find(x=>x.id===id);
           sharePost(post);
         });
       });
+
+      // stats
+      const totalImages = items.reduce((sum,p) => sum + (p.isLocal ? (p.images||[]).length : extractImages(p.content||"").length), 0);
+      document.getElementById("statPosts").textContent = items.length;
+      document.getElementById("statImages").textContent = totalImages;
+      document.getElementById("statLocal").textContent = state.localPosts.length;
     }
 
-    // ===== Reacciones / compartir =====
+    // ===== Reader =====
+    function openReader(p, isLocal=false){
+      document.querySelector(".feed").style.display = "none";
+      document.querySelector(".rightbar").style.display = "none";
+      document.querySelector(".readerPanel").style.display = "block";
+
+      const title = p.title || "(Sin título)";
+      const contentHtml = cleanUnwanted(isLocal ? p.content : (p.content || ""));
+      const images = isLocal ? (p.images||[]) : extractImages(contentHtml);
+      const cover = images[0];
+      const deckObj = estimateReadTime(contentHtml);
+
+      document.getElementById("viewCover").innerHTML = cover ? `<img src="${cover}" alt="Portada">` : "";
+      document.getElementById("viewTitle").textContent = title;
+      document.getElementById("viewDeck").style.display = deckObj.deck ? "block" : "none";
+      document.getElementById("viewDeck").textContent = deckObj.deck;
+      document.getElementById("viewMeta").textContent = `${fmtDate(isLocal ? p.published : p.published)} • ${isLocal ? (state.user?.name || "Yo") : (p.author?.displayName || "Autor")}`;
+      document.getElementById("viewReadTime").textContent = `⏱︎ ${deckObj.mins} min`;
+
+      document.getElementById("viewLabels").innerHTML = (p.labels||[]).map(l=>`<span class="tag">${escapeHtml(l)}</span>`).join("");
+
+      const likeId = isLocal ? p.localId : p.id;
+      const like = state.likes[likeId] || { count: 0, liked: false };
+      const viewLike = document.getElementById("viewLike");
+      viewLike.classList.toggle("active", like.liked);
+      viewLike.querySelector("span").textContent = like.count;
+      viewLike.onclick = () => toggleLike(likeId, viewLike);
+
+      document.getElementById("viewShare").onclick = () => sharePost(p);
+      document.getElementById("viewCopyLink").onclick = async () => {
+        const url = location.href;
+        try { await navigator.clipboard.writeText(url); notify("Enlace copiado.", "ok"); } catch(e){ notify("No se pudo copiar.", "err"); }
+      };
+
+      const body = document.getElementById("viewContent");
+      body.innerHTML = "";
+      const doc = new DOMParser().parseFromString(contentHtml, "text/html");
+
+      doc.querySelectorAll("img").forEach(img => {
+        img.loading = "lazy";
+        img.style.display = "block";
+        img.style.margin = "12px auto";
+        img.style.borderRadius = "14px";
+        img.style.maxWidth = "95%";
+      });
+
+      [...doc.body.childNodes].forEach(node => {
+        if (node.nodeType === 1) body.appendChild(node);
+        else if (node.nodeType === 3 && node.textContent.trim()) {
+          const pEl = document.createElement("p");
+          pEl.textContent = node.textContent.trim();
+          body.appendChild(pEl);
+        }
+      });
+    }
+    function closeReader(){
+      document.querySelector(".readerPanel").style.display = "none";
+      document.querySelector(".feed").style.display = "block";
+      document.querySelector(".rightbar").style.display = "block";
+    }
+    document.getElementById("closePost").addEventListener("click", closeReader);
+    document.getElementById("backToFront").addEventListener("click", closeReader);
+    document.getElementById("openReaderPanel").addEventListener("click", () => {
+      // If no post selected, open first available
+      const p = state.localPosts[0] || state.posts[0];
+      if (p) openReader(p, !!p.localId);
+    });
+    document.getElementById("backHome").addEventListener("click", () => {
+      document.querySelector(".readerPanel").style.display = "none";
+      document.querySelector(".feed").style.display = "block";
+      document.querySelector(".rightbar").style.display = "block";
+    });
+
+    // ===== Likes & share =====
     function toggleLike(id, btnEl){
       const like = state.likes[id] || { count: 0, liked: false };
       like.liked = !like.liked;
@@ -523,116 +568,21 @@
       }
     }
     async function sharePost(post){
-      const shareData = { title: post.title, text: post.title, url: post.url || post.selfLink || location.href };
+      const title = post.title || "El Metro Diario";
+      const shareData = { title, text: title, url: location.href };
       try {
         if (navigator.share) await navigator.share(shareData);
-        else {
-          await navigator.clipboard.writeText(shareData.url);
-          notify("Enlace copiado al portapapeles.", "ok");
-        }
+        else { await navigator.clipboard.writeText(shareData.url); notify("Enlace copiado.", "ok"); }
       } catch(e){ notify("No se pudo compartir.", "err"); }
     }
     function notify(msg, type="info") {
       const el = document.getElementById("feedStatus");
       const color = type==="ok" ? "var(--ok)" : type==="warn" ? "var(--warn)" : type==="err" ? "var(--err)" : "var(--muted)";
-      el.style.color = color;
-      el.textContent = msg;
-      clearTimeout(notify._t);
-      notify._t = setTimeout(()=>{ el.textContent = ""; }, 3500);
+      el.style.color = color; el.textContent = msg;
+      clearTimeout(notify._t); notify._t = setTimeout(()=>{ el.textContent = ""; }, 3500);
     }
 
-    // ===== Lectura (encabezado izq, cuerpo centrado) =====
-    function openPost(p) {
-      document.querySelector(".feed").style.display = "none";
-      document.querySelector(".postView").style.display = "block";
-
-      const cleanedHtml = cleanUnwanted(p.content || "");
-      const images = extractImages(cleanedHtml);
-
-      // Portada: si la primera imagen es baja resolución, no mostrar portada
-      const first = images[0];
-      const showCover = first && !isLowRes(first);
-      const coverSrc = showCover ? first : "";
-
-      const viewCover = document.getElementById("viewCover");
-      viewCover.innerHTML = coverSrc ? `<img src="${coverSrc}" alt="Portada">` : "";
-
-      document.getElementById("viewTitle").textContent = p.title;
-      const { mins, words, deck } = estimateReadTime(cleanedHtml);
-      document.getElementById("viewDeck").style.display = deck ? "block" : "none";
-      document.getElementById("viewDeck").textContent = deck;
-      document.getElementById("viewMeta").textContent = `${fmtDate(p.published)} • Por ${p.author?.displayName || "Desconocido"}`;
-      document.getElementById("viewReadTime").textContent = `⏱︎ ${mins} min • ${words} palabras`;
-      document.getElementById("viewLabels").innerHTML = (p.labels||[]).map(l=>`<span class="tag">${escapeHtml(l)}</span>`).join("");
-
-      // Likes
-      const like = state.likes[p.id] || { count: 0, liked: false };
-      const viewLike = document.getElementById("viewLike");
-      viewLike.classList.toggle("active", like.liked);
-      viewLike.querySelector("span").textContent = like.count;
-      viewLike.onclick = () => toggleLike(p.id, viewLike);
-
-      // Toolbar
-      document.getElementById("viewShare").onclick = () => sharePost(p);
-      document.getElementById("viewCopyLink").onclick = async () => {
-        const url = p.url || p.selfLink || location.href;
-        try { await navigator.clipboard.writeText(url); notify("Enlace copiado.", "ok"); } catch(e){ notify("No se pudo copiar.", "err"); }
-      };
-
-      // Cuerpo: respetar HTML original, normalizando imágenes (s1600) y centrando
-      const body = document.getElementById("viewContent");
-      body.innerHTML = "";
-      const doc = new DOMParser().parseFromString(cleanedHtml, "text/html");
-
-      doc.querySelectorAll("img").forEach(img => {
-        img.src = upscaleBloggerImage(img.src || "");
-        img.loading = "lazy";
-        img.style.display = "block";
-        img.style.margin = "12px auto";
-        img.style.borderRadius = "14px";
-      });
-
-      [...doc.body.childNodes].forEach(node => {
-        if (node.nodeType === 1) {
-          body.appendChild(node);
-        } else if (node.nodeType === 3 && node.textContent.trim()) {
-          const pEl = document.createElement("p");
-          pEl.textContent = node.textContent.trim();
-          body.appendChild(pEl);
-        }
-      });
-
-      const url = new URL(location.href);
-      url.searchParams.set("post", p.id);
-      history.pushState({ view: "post", id: p.id }, "", url.toString());
-    }
-    function closePost() {
-      document.querySelector(".postView").style.display = "none";
-      document.querySelector(".feed").style.display = "block";
-    }
-    document.getElementById("closePost").addEventListener("click", () => {
-      closePost();
-      const url = new URL(location.href);
-      url.searchParams.delete("post");
-      history.pushState({ view: "home" }, "", url.toString());
-    });
-    document.getElementById("backToFront").addEventListener("click", () => {
-      closePost();
-      const url = new URL(location.href);
-      url.searchParams.delete("post");
-      history.pushState({ view: "home" }, "", url.toString());
-    });
-    window.addEventListener("popstate", () => {
-      const postId = new URLSearchParams(location.search).get("post");
-      if (postId) {
-        const post = state.posts.find(x => x.id === postId);
-        if (post) openPost(post);
-      } else {
-        closePost();
-      }
-    });
-
-    // ===== Composer =====
+    // ===== Composer (local publishing) =====
     const composerModal = document.getElementById("composerModal");
     function openComposer(){ composerModal.style.display = "flex"; updateComposerAvatar(state.user); }
     document.getElementById("openComposer").addEventListener("click", openComposer);
@@ -652,7 +602,6 @@
         }
       });
     });
-
     document.getElementById("newImages").addEventListener("change", function(){
       const preview = document.getElementById("previewImgs");
       preview.innerHTML = "";
@@ -670,80 +619,93 @@
       });
     });
 
-    // ===== Publicar con manejo de 403 =====
     document.getElementById("publishBtn").addEventListener("click", async () => {
       const title = document.getElementById("newTitle").value.trim();
       const editor = document.getElementById("editor");
       const composeStatus = document.getElementById("composeStatus");
       if (!title) { composeStatus.style.color = "var(--err)"; composeStatus.textContent = "Pon un título claro."; return; }
-      const contentHtml = editor.innerHTML + state.uploadDataUrls.map(url => `<p><img src="${url}" alt=""></p>`).join("");
 
-      if (!state.user?.accessToken) {
-        composeStatus.style.color = "var(--err)";
-        composeStatus.textContent = "Inicia sesión para publicar.";
-        return;
-      }
+      const contentHtml = cleanUnwanted(editor.innerHTML) + state.uploadDataUrls.map(url => `<p><img src="${url}" alt=""></p>`).join("");
+      const localPost = {
+        localId: Date.now().toString(),
+        title,
+        content: contentHtml,
+        labels: [],
+        author: { displayName: state.user?.name || "Yo" },
+        published: new Date().toISOString(),
+        images: state.uploadDataUrls.slice(0) // preserve
+      };
 
-      composeStatus.style.color = "var(--muted)";
-      composeStatus.textContent = "Publicando…";
-
-      try {
-        const res = await fetch(`https://www.googleapis.com/blogger/v3/blogs/${BLOG_ID}/posts/`, {
-          method:"POST",
-          headers:{ "Authorization": `Bearer ${state.user.accessToken}`, "Content-Type":"application/json" },
-          body: JSON.stringify({ kind:"blogger#post", title, content: contentHtml })
-        });
-        if (!res.ok) {
-          const t = await res.text();
-          let hint = "";
-          try {
-            const j = JSON.parse(t);
-            const code = j?.error?.code;
-            const reason = j?.error?.errors?.[0]?.reason;
-            if (code === 403 || reason === "forbidden") {
-              hint = " • Verifica que la cuenta autenticada tenga rol de autor/administrador en este blog de Blogger y que el Client ID tenga el origen (localhost) autorizado.";
-            }
-          } catch {}
-          throw new Error(t + hint);
-        }
-        composeStatus.style.color = "var(--ok)";
-        composeStatus.textContent = "Publicado.";
-        composerModal.style.display = "none";
-        await load();
-      } catch(err) {
-        composeStatus.style.color = "var(--err)";
-        composeStatus.textContent = "Error al publicar: " + (err.message || err);
-      }
+      state.localPosts.unshift(localPost);
+      localStorage.setItem("localPosts", JSON.stringify(state.localPosts));
+      composeStatus.style.color = "var(--ok)";
+      composeStatus.textContent = "Publicado localmente (como comentario).";
+      composerModal.style.display = "none";
+      editor.innerHTML = "";
+      document.getElementById("newTitle").value = "";
+      state.uploadDataUrls = [];
+      document.getElementById("previewImgs").innerHTML = "";
+      renderThread();
     });
 
-    // ===== Búsqueda =====
-    document.getElementById("q").addEventListener("input", debounce(load, 350));
+    // ===== Search =====
+    document.getElementById("q").addEventListener("input", debounce(() => {
+      const q = document.getElementById("q").value.trim().toLowerCase();
+      const filtered = state.posts.filter(p => (p.title||"").toLowerCase().includes(q) || (p.content||"").toLowerCase().includes(q));
+      const localFiltered = state.localPosts.filter(p => (p.title||"").toLowerCase().includes(q) || (p.content||"").toLowerCase().includes(q));
+      const list = document.getElementById("thread");
+      list.innerHTML = "";
+      const items = [
+        ...localFiltered.map(lp => ({ ...lp, isLocal: true })),
+        ...filtered.map(p => ({ ...p, isLocal: false }))
+      ];
+      items.forEach(p => {
+        const container = document.createElement("article");
+        container.className = "post";
+        const initials = p.isLocal ? (state.user?.name || "ED").slice(0,2).toUpperCase() : (p.author?.displayName || "ED").slice(0,2).toUpperCase();
+        const imgs = p.isLocal ? (p.images||[]) : extractImages(p.content||"");
+        const thumbs = imgs.slice(0,6);
+        const excerpt = extractExcerpt(p.isLocal ? p.content : p.content, 220);
+        const { mins } = estimateReadTime(p.isLocal ? p.content : p.content||"");
+        container.innerHTML = `
+          <div class="avatar">${p.isLocal && state.user?.picture ? `<img src="${state.user.picture}" alt="">` : `<span>${initials}</span>`}</div>
+          <div>
+            <div class="postHeader">
+              <h3 class="postTitle"><a href="#" data-open="${p.isLocal ? p.localId : p.id}" data-local="${p.isLocal ? 1 : 0}" class="open-post">${escapeHtml(p.title||"(Sin título)")}</a></h3>
+              <span class="postMeta">• ⏱︎ ${mins} min</span>
+            </div>
+            <div class="postExcerpt">${escapeHtml(excerpt)}</div>
+            ${thumbs.length ? `<div class="thumbGrid">${thumbs.map(src => `<img src="${src}" alt="">`).join("")}</div>` : ""}
+          </div>`;
+        list.appendChild(container);
+      });
+      list.querySelectorAll(".open-post").forEach(a => {
+        a.addEventListener("click", (e) => {
+          e.preventDefault();
+          const id = a.getAttribute("data-open");
+          const isLocal = a.getAttribute("data-local") === "1";
+          const post = isLocal ? state.localPosts.find(x => String(x.localId) === String(id)) : state.posts.find(x => x.id === id);
+          if (post) openReader(post, isLocal);
+        });
+      });
+    }, 250));
 
-    // ===== Carga inicial =====
+    // ===== Load =====
     async function load() {
-      const q = document.getElementById("q").value.trim();
       const status = document.getElementById("feedStatus");
       status.style.color = "var(--muted)";
       status.textContent = "Cargando noticias…";
       try {
-        const data = await fetchPosts({ q, maxResults: 25 });
+        const data = await fetchPosts({ maxResults: 25 });
         state.posts = data.items || [];
-        renderFeed(state.posts);
-        status.textContent = `Mostrando ${state.posts.length} noticias.`;
-        restoreFromUrl();
+        status.textContent = `Mostrando ${state.posts.length + state.localPosts.length} (incluye locales).`;
+        renderThread();
       } catch (err) {
         status.style.color = "var(--err)";
         status.textContent = "No se pudieron cargar las noticias.";
+        renderThread(); // render at least locals
       }
     }
-    function restoreFromUrl(){
-      const postId = new URLSearchParams(location.search).get("post");
-      if (postId) {
-        const post = state.posts.find(x => x.id === postId);
-        if (post) openPost(post);
-      }
-    }
-
     load();
   </script>
 </body>
